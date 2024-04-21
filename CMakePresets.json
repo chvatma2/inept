@@ -11,6 +11,14 @@
             }
         },
         {
+            "name": "asan",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS_DEBUG": "-g -fsanitize=address,undefined -fsanitize-recover=address -fno-omit-frame-pointer"
+            }
+
+        },
+        {
             "name": "gcc",
             "hidden": true,
             "inherits": "base",
@@ -28,14 +36,6 @@
 
         },
         {
-            "name": "asan",
-            "hidden": true,
-            "cacheVariables": {
-                "CMAKE_CXX_FLAGS_DEBUG": "-g -fsanitize=address,undefined -fsanitize-recover=address -fno-omit-frame-pointer"
-            }
-
-        },
-        {
             "name": "debug",
             "displayName": "Debug",
             "inherits": "gcc",
@@ -47,6 +47,14 @@
             "name": "release",
             "displayName": "Release",
             "inherits": "gcc",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "release-asan",
+            "displayName": "Release Asan",
+            "inherits": ["gcc", "asan"],
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
@@ -80,6 +88,13 @@
           "configuration": "Release"
         },
         {
+            "name": "release-asan",
+            "displayName": "Release Asan",
+            "configurePreset": "release-asan",
+            "verbose": true,
+            "configuration": "Release"
+         },
+        {
           "name": "debug",
           "displayName": "Debug",
           "configurePreset": "debug",
@@ -111,6 +126,12 @@
         {
             "name": "release",
             "configurePreset": "release",
+            "output": {"outputOnFailure": true},
+            "execution": {"noTestsAction": "error"}
+        },
+        {
+            "name": "release-asan",
+            "configurePreset": "release-asan",
             "output": {"outputOnFailure": true},
             "execution": {"noTestsAction": "error"}
         },

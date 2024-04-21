@@ -5,10 +5,13 @@ class SphereTest : public QObject
 {
     Q_OBJECT
 private slots:
-    static void placeholderTest()
+    void placeholderTest()
     {
-        QVERIFY(true);
+        QVERIFY(&m_sphere);
     }
+
+private:
+    Inept::Core::Sphere m_sphere;
 };
 QTEST_MAIN(SphereTest)
 #include "sphere.test.moc"
