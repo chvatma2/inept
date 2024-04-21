@@ -1,3 +1,4 @@
+// GCOV_EXCL_START
 #include "core/sphere.h"
 #include <iostream>
 auto main() -> int
@@ -9,3 +10,4 @@ auto main() -> int
     }
     return 0;
 }
+// GCOV_EXCL_STOP
