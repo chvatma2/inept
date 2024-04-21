@@ -85,5 +85,18 @@
           "verbose": true,
           "configuration": "Debug"
         }
-      ]
+      ],
+    "testPresets": [
+        {
+            "name": "debug",
+            "configurePreset": "debug",
+            "output": {"outputOnFailure": true},
+            "execution": {"noTestsAction": "error"}
+        },
+        {
+            "name": "release",
+            "configurePreset": "release",
+            "output": {"outputOnFailure": true}
+        }
+    ]
 }
