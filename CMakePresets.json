@@ -57,8 +57,9 @@
             "inherits": "base",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "clazy",
-                "CMAKE_CXX_FLAGS": "-Xclang -plugin-arg-clazy -Xclang level0,level1,level2,no-strict-iterators,no-ctor-missing-parent-argument -Werror",
-                "CMAKE_BUILD_TYPE": "Release"
+                "CMAKE_CXX_FLAGS": "-Xclang -plugin-arg-clazy -Xclang level0,level1,level2,no-strict-iterators,no-ctor-missing-parent-argument -Werror -Wunused",
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_CXX_CLANG_TIDY": "clang-tidy;-warnings-as-errors=*"
             }
         },
         {
@@ -82,6 +83,13 @@
           "name": "debug",
           "displayName": "Debug",
           "configurePreset": "debug",
+          "verbose": true,
+          "configuration": "Debug"
+        },
+        {
+          "name": "clazy",
+          "displayName": "Clazy",
+          "configurePreset": "clazy",
           "verbose": true,
           "configuration": "Debug"
         }
