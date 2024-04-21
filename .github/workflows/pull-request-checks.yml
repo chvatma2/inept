@@ -24,7 +24,7 @@ jobs:
     - uses: jurplel/install-qt-action@v3.3.0
       with:
         version: '6.3.*'
-    - run: sudo apt install -y xvfb x11-utils libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0 xdotool
+    - run: sudo apt install -y xvfb x11-utils libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0 xdotool clazy
             
 
     - name: Configure CMake
@@ -49,6 +49,12 @@ jobs:
     - name: Static Analysis Build
       run: cmake --build --preset "clazy"
 
-    - name: Static Analysis Test
-      run: ctest --preset "clazy"
+    - name: Build and test this project
+      run: |
+        cmake --preset "coverage"
+        cmake --build --preset "coverage"
+        xvfb-run --auto-servernum
+        ctest --preset "coverage"
 
+    - name: Generate a code coverage report
+      uses: threeal/gcovr-action@v1.0.0
