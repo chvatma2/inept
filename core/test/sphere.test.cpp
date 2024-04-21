@@ -5,7 +5,7 @@ class SphereTest : public QObject
 {
     Q_OBJECT
 private slots:
-    void placeholderTest()
+    static void placeholderTest()
     {
         QVERIFY(true);
     }
