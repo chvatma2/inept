@@ -1,0 +1,89 @@
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/../build-${presetName}",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
+        },
+        {
+            "name": "gcc",
+            "hidden": true,
+            "inherits": "base",
+            "cacheVariables": {
+                "CMAKE_CXX_COMPILER": "g++",
+                "CMAKE_CXX_FLAGS_INIT": "-Wall -Wextra -Wpedantic -Wshadow -Werror -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast"
+            }
+        },
+        {
+            "name": "gcov",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS_DEBUG": "--coverage"
+            }
+
+        },
+        {
+            "name": "asan",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS_DEBUG": "-g -fsanitize=address,undefined -fsanitize-recover=address -fno-omit-frame-pointer"
+            }
+
+        },
+        {
+            "name": "debug",
+            "displayName": "Debug",
+            "inherits": "gcc",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "release",
+            "displayName": "Release",
+            "inherits": "gcc",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "clazy",
+            "displayName": "Clazy",
+            "inherits": "base",
+            "cacheVariables": {
+                "CMAKE_CXX_COMPILER": "clazy",
+                "CMAKE_CXX_FLAGS": "-Xclang -plugin-arg-clazy -Xclang level0,level1,level2,no-strict-iterators,no-ctor-missing-parent-argument -Werror",
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "coverage",
+            "displayName": "Coverage",
+            "inherits": ["gcc", "gcov"],
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+          "name": "release",
+          "displayName": "Release",
+          "configurePreset": "release",
+          "verbose": true,
+          "configuration": "Release"
+        },
+        {
+          "name": "debug",
+          "displayName": "Debug",
+          "configurePreset": "debug",
+          "verbose": true,
+          "configuration": "Debug"
+        }
+      ]
+}
