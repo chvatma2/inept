@@ -1,13 +1,13 @@
 find_package(
   Qt6
-  COMPONENTS Test Core
+  COMPONENTS Test Core Gui
   REQUIRED)
 
 set(classes sphere)
 
 add_library(core STATIC)
 target_include_directories(core PUBLIC include)
-target_link_libraries(core PUBLIC Qt6::Core)
+target_link_libraries(core PUBLIC Qt6::Core Qt6::Gui)
 
 function(process_sources)
   foreach(class ${ARGN})

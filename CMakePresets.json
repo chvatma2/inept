@@ -67,7 +67,7 @@
             "displayName": "Coverage",
             "inherits": ["gcc", "gcov"],
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
+                "CMAKE_BUILD_TYPE": "Debug"
             }
         }
     ],
@@ -92,6 +92,13 @@
           "configurePreset": "clazy",
           "verbose": true,
           "configuration": "Debug"
+        },
+        {
+          "name": "coverage",
+          "displayName": "Coverage",
+          "configurePreset": "coverage",
+          "verbose": true,
+          "configuration": "Debug"
         }
       ],
     "testPresets": [
@@ -104,7 +111,14 @@
         {
             "name": "release",
             "configurePreset": "release",
-            "output": {"outputOnFailure": true}
+            "output": {"outputOnFailure": true},
+            "execution": {"noTestsAction": "error"}
+        },
+        {
+            "name": "coverage",
+            "configurePreset": "coverage",
+            "output": {"outputOnFailure": true},
+            "execution": {"noTestsAction": "error"}
         }
     ]
 }
