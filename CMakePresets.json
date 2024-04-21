@@ -65,9 +65,12 @@
             "inherits": "base",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "clazy",
-                "CMAKE_CXX_FLAGS": "-Xclang -plugin-arg-clazy -Xclang level0,level1,level2,no-strict-iterators,no-ctor-missing-parent-argument -Werror -Wunused",
                 "CMAKE_BUILD_TYPE": "Debug",
                 "CMAKE_CXX_CLANG_TIDY": "clang-tidy;-warnings-as-errors=*"
+            },
+            "environment": {
+                "CXX": "clazy",
+                "CCACHE_DISABLE": "ON"
             }
         },
         {
@@ -106,7 +109,11 @@
           "displayName": "Clazy",
           "configurePreset": "clazy",
           "verbose": true,
-          "configuration": "Debug"
+          "configuration": "Debug",
+          "environment": {
+              "CLAZY_CHECKS": "level2,detaching-member,heap-allocated-small-trivial-type,isempty-vs-count,qstring-varargs,qvariant-template-instantiation,raw-environment-function,reserve-candidates,signal-with-return-value,thread-with-slots,no-ctor-missing-parent-argument,no-missing-typeinfo",
+              "CCACHE_DISABLE": "ON"
+          }
         },
         {
           "name": "coverage",
