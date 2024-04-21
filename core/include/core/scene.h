@@ -20,3 +20,30 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. */
 
+#ifndef SCENE_H
+#define SCENE_H
+
+#include "core/surfaceinteraction.h"
+#include <memory>
+#include <optional>
+#include <vector>
+#include <QVector3D>
+
+namespace Inept::Core {
+class Primitive;
+class Ray;
+class Scene
+{
+public:
+    Scene(std::vector<std::unique_ptr<Primitive>>&& primitives, QVector3D camera);
+    [[nodiscard]] std::optional<SurfaceInteraction> intersect(const Ray& ray) const;
+    [[nodiscard]] QVector3D camera() const;
+
+private:
+    std::vector<std::unique_ptr<Primitive>> m_primitives;
+    QVector3D m_camera;
+};
+
+} // namespace Inept::Core
+
+#endif // SCENE_H

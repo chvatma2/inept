@@ -19,21 +19,21 @@ Copyright(c) 2024 Martin Chvatal
  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#ifndef SPHERE_H
-#define SPHERE_H
-#include "core/primitive.h"
-#include <QVector3D>
+#include "core/ray.h"
+#include <QTest>
 
-namespace Inept::Core {
-class Sphere : public Primitive
+class RayTest : public QObject
 {
-public:
-    Sphere(QVector3D color, QVector3D emission, QVector3D position, float radius);
-    [[nodiscard]] std::optional<SurfaceInteraction> intersect(const Ray& ray) const override;
-
-private:
-    QVector3D m_position;
-    float m_radius {0.0};
+    Q_OBJECT
+private slots:
+    static void constructorTest()
+    {
+        const QVector3D origin {0.0, 0.0, 0.0};
+        const QVector3D direction {1.0, 0.0, 0.0};
+        const Inept::Core::Ray ray {origin, direction};
+        QCOMPARE(ray.origin(), origin);
+        QCOMPARE(ray.direction(), direction);
+    }
 };
-} // namespace Inept::Core
-#endif // SPHERE_H
+QTEST_MAIN(RayTest)
+#include "ray.test.moc"

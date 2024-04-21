@@ -20,3 +20,40 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. */
 
+#include "core/scene.h"
+#include "core/primitive.h"
+#include "core/ray.h"
+#include <limits>
+
+namespace Inept::Core {
+
+Scene::Scene(std::vector<std::unique_ptr<Primitive>>&& primitives, QVector3D camera)
+    : m_primitives {std::move(primitives)}
+    , m_camera {camera}
+{
+}
+
+std::optional<SurfaceInteraction> Scene::intersect(const Ray& ray) const
+{
+    std::optional<SurfaceInteraction> result;
+    float closestDistance {std::numeric_limits<float>::max()};
+    for (auto& primitive : m_primitives) {
+        auto interaction = primitive->intersect(ray);
+        if (!interaction.has_value()) {
+            continue;
+        }
+        const float distance = (ray.origin() - interaction->point()).length();
+        if (distance < closestDistance) {
+            closestDistance = distance;
+            result.emplace(interaction.value());
+        }
+    }
+    return result;
+}
+
+QVector3D Scene::camera() const
+{
+    return m_camera;
+}
+
+} // namespace Inept::Core
