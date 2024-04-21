@@ -47,8 +47,7 @@ jobs:
       run: |
         cmake --preset "coverage"
         cmake --build --preset "coverage"
-        xvfb-run --auto-servernum
-        ctest --preset "coverage"
+        xvfb-run --auto-servernum ctest --preset "coverage"
 
     - name: Generate a code coverage report
       uses: threeal/gcovr-action@v1.0.0
