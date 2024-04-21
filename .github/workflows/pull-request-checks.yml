@@ -21,6 +21,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: seanmiddleditch/gha-setup-ninja@master
+    - uses: KyleMayes/install-llvm-action@v2
+      with:
+        version: "17.0"
     - uses: jurplel/install-qt-action@v3.3.0
       with:
         version: '6.5.*'
