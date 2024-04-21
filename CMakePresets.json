@@ -11,6 +11,14 @@
             }
         },
         {
+            "name": "asan",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS_DEBUG": "-g -fsanitize=address,undefined -fsanitize-recover=address -fno-omit-frame-pointer"
+            }
+
+        },
+        {
             "name": "gcc",
             "hidden": true,
             "inherits": "base",
@@ -24,14 +32,6 @@
             "hidden": true,
             "cacheVariables": {
                 "CMAKE_CXX_FLAGS_DEBUG": "--coverage"
-            }
-
-        },
-        {
-            "name": "asan",
-            "hidden": true,
-            "cacheVariables": {
-                "CMAKE_CXX_FLAGS_DEBUG": "-g -fsanitize=address,undefined -fsanitize-recover=address -fno-omit-frame-pointer"
             }
 
         },
@@ -52,14 +52,25 @@
             }
         },
         {
+            "name": "release-asan",
+            "displayName": "Release Asan",
+            "inherits": ["gcc", "asan"],
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
             "name": "clazy",
             "displayName": "Clazy",
             "inherits": "base",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "clazy",
-                "CMAKE_CXX_FLAGS": "-Xclang -plugin-arg-clazy -Xclang level0,level1,level2,no-strict-iterators,no-ctor-missing-parent-argument -Werror -Wunused",
                 "CMAKE_BUILD_TYPE": "Debug",
                 "CMAKE_CXX_CLANG_TIDY": "clang-tidy;-warnings-as-errors=*"
+            },
+            "environment": {
+                "CXX": "clazy",
+                "CCACHE_DISABLE": "ON"
             }
         },
         {
@@ -67,7 +78,7 @@
             "displayName": "Coverage",
             "inherits": ["gcc", "gcov"],
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
+                "CMAKE_BUILD_TYPE": "Debug"
             }
         }
     ],
@@ -80,6 +91,13 @@
           "configuration": "Release"
         },
         {
+            "name": "release-asan",
+            "displayName": "Release Asan",
+            "configurePreset": "release-asan",
+            "verbose": true,
+            "configuration": "Release"
+         },
+        {
           "name": "debug",
           "displayName": "Debug",
           "configurePreset": "debug",
@@ -90,6 +108,17 @@
           "name": "clazy",
           "displayName": "Clazy",
           "configurePreset": "clazy",
+          "verbose": true,
+          "configuration": "Debug",
+          "environment": {
+              "CLAZY_CHECKS": "level2,detaching-member,heap-allocated-small-trivial-type,isempty-vs-count,qstring-varargs,qvariant-template-instantiation,raw-environment-function,reserve-candidates,signal-with-return-value,thread-with-slots,no-ctor-missing-parent-argument,no-missing-typeinfo",
+              "CCACHE_DISABLE": "ON"
+          }
+        },
+        {
+          "name": "coverage",
+          "displayName": "Coverage",
+          "configurePreset": "coverage",
           "verbose": true,
           "configuration": "Debug"
         }
@@ -104,7 +133,20 @@
         {
             "name": "release",
             "configurePreset": "release",
-            "output": {"outputOnFailure": true}
+            "output": {"outputOnFailure": true},
+            "execution": {"noTestsAction": "error"}
+        },
+        {
+            "name": "release-asan",
+            "configurePreset": "release-asan",
+            "output": {"outputOnFailure": true},
+            "execution": {"noTestsAction": "error"}
+        },
+        {
+            "name": "coverage",
+            "configurePreset": "coverage",
+            "output": {"outputOnFailure": true},
+            "execution": {"noTestsAction": "error"}
         }
     ]
 }

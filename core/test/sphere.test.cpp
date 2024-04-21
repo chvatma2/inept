@@ -7,8 +7,11 @@ class SphereTest : public QObject
 private slots:
     void placeholderTest()
     {
-        QVERIFY(true);
+        QVERIFY(&m_sphere);
     }
+
+private:
+    Inept::Core::Sphere m_sphere;
 };
 QTEST_MAIN(SphereTest)
 #include "sphere.test.moc"

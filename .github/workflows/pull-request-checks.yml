@@ -12,23 +12,27 @@ env:
 
 jobs:
   build:
-    name: Release Build Test
+    name: Release Build Test and Static Analysis
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
     # You can convert this to a matrix build if you need cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@main
+    - uses: actions/checkout@v4
     - uses: seanmiddleditch/gha-setup-ninja@master
+    - uses: KyleMayes/install-llvm-action@v2
+      with:
+        version: "17.0"
     - uses: jurplel/install-qt-action@v3.3.0
       with:
-        version: '6.5.2'
+        version: '6.5.*'
+        cache: true
+            
+    - run: sudo apt install -y xvfb x11-utils libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0 xdotool clazy clang-tidy gcovr
             
 
     - name: Configure CMake
-      env:
-        CMAKE_PREFIX_PATH: ${QT_ROOT_DIR}/lib/cmake
         
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
@@ -43,4 +47,23 @@ jobs:
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest --preset "release"
+      env:
+        QT_QPA_PLATFORM: offscreen
+        QT_QUICK_BACKEND: software
 
+    - name: Build and test this project
+      run: |
+        cmake --preset "coverage"
+        cmake --build --preset "coverage"
+        ctest --preset "coverage"
+      env:
+        QT_QPA_PLATFORM: offscreen
+        QT_QUICK_BACKEND: software
+
+    - name: Generate a code coverage report
+      run: gcovr ../build-coverage
+    - name: Static Analysis Configure
+      run: cmake --preset "clazy"
+
+    - name: Static Analysis Build
+      run: cmake --build --preset "clazy"
