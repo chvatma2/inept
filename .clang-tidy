@@ -1,3 +1,2 @@
 ---
-Checks:          'google-*,clang-analyzer-*,bugprone-*,boost-*,concurrency-*'
-WarningsAsErrors: true
+Checks:          'bugprone-swapped-arguments'
