@@ -67,6 +67,7 @@ jobs:
     - name: Static Analysis Build
       run: |
         sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-15 15
+        sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-15 15
         clazy --version
         clang --version
         cmake --build --preset "clazy"
