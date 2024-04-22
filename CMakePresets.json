@@ -71,6 +71,7 @@
             "environment": {
                 "CXX": "clazy",
                 "CCACHE_DISABLE": "ON"
+                "CLANGXX": "clang++-11; clazy"
             }
         },
         {
