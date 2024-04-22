@@ -20,14 +20,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - uses: seanmiddleditch/gha-setup-ninja@master
-    - uses: KyleMayes/install-llvm-action@v2
+    - uses: seanmiddleditch/gha-setup-ninja@v4
+    # - uses: KyleMayes/install-llvm-action@v2
+    #   with:
+    #     version: "17.0"
+    - uses: jurplel/install-qt-action@v3.3
       with:
-        version: "17.0"
-    - uses: jurplel/install-qt-action@v3.3.0
-      with:
-        version: '6.5.*'
-        cache: true
+        version: '6.6.*'
             
     - run: sudo apt install -y xvfb x11-utils libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0 xdotool clazy clang-tidy gcovr
             
@@ -66,4 +65,6 @@ jobs:
       run: cmake --preset "clazy"
 
     - name: Static Analysis Build
-      run: cmake --build --preset "clazy"
+      run: |
+        clazy --version
+        cmake --build --preset "clazy"

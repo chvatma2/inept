@@ -26,13 +26,13 @@ class SphereTest : public QObject
 {
     Q_OBJECT
 private slots:
-    void constructorTest()
+    static void constructorTest()
     {
         const QVector3D color {1.0f, 0.0f, 0.5f};
         const QVector3D emission {0.0f, 0.5f, 1.0f};
         const QVector3D position {0.5f, 1.0f, 0.0f};
-        float size {2.0f};
-        Inept::Core::Sphere sphere(color, emission, position, size);
+        const float size {2.0f};
+        const Inept::Core::Sphere sphere(color, emission, position, size);
         QCOMPARE(sphere.color(), color);
         QCOMPARE(sphere.emission(), emission);
     }
