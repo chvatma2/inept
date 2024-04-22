@@ -29,7 +29,11 @@ jobs:
         version: '6.6.*'
             
     - run: sudo apt install -y xvfb x11-utils libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0 xdotool clazy clang-tidy gcovr clang-15
-            
+    - name: Install newer Clang
+      run: |
+       wget https://apt.llvm.org/llvm.sh
+       chmod +x ./llvm.sh
+       sudo ./llvm.sh 17
 
 #     - name: Configure CMake
 #
