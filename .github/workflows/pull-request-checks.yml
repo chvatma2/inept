@@ -73,4 +73,4 @@ jobs:
         clazy --version
         cmake --build --preset "clazy"
       env:
-        CLANGXX=clang++-17; clazy
+        CLANGXX: clang++-17; clazy
