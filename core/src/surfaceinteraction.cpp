@@ -30,7 +30,7 @@ const Primitive& SurfaceInteraction::primitive() const
     return m_primitive;
 }
 
-QVector3D SurfaceInteraction::point() const
+Vector3D SurfaceInteraction::point() const
 {
     return m_point;
 }

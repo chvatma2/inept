@@ -22,21 +22,21 @@ Copyright(c) 2024 Martin Chvatal
 #ifndef RAY_H
 #define RAY_H
 
-#include <QVector3D>
+#include "core/vector3d.h"
 
 namespace Inept::Core {
 class Ray
 {
 public:
-    Ray(QVector3D origin, QVector3D direction)
+    Ray(Vector3D origin, Vector3D direction)
         : m_origin(origin)
         , m_direction(direction) {};
-    [[nodiscard]] QVector3D origin() const;
-    [[nodiscard]] QVector3D direction() const;
+    [[nodiscard]] auto origin() const -> Vector3D;
+    [[nodiscard]] auto direction() const -> Vector3D;
 
 private:
-    QVector3D m_origin;
-    QVector3D m_direction;
+    Vector3D m_origin;
+    Vector3D m_direction;
 };
 } // namespace Inept::Core
 #endif // RAY_H

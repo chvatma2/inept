@@ -24,15 +24,15 @@ Copyright(c) 2024 Martin Chvatal
 
 #include "core/ray.h"
 #include "core/surfaceinteraction.h"
+#include "core/vector3d.h"
 #include <optional>
-#include <QVector3D>
 
 namespace Inept::Core {
 
 class Primitive
 {
 public:
-    Primitive(QVector3D color, QVector3D emission)
+    Primitive(Vector3D color, Vector3D emission)
         : m_color {color}
         , m_emission {emission} {};
     virtual ~Primitive() = default;
@@ -40,13 +40,13 @@ public:
     Primitive& operator=(const Primitive&) = delete;
     Primitive(Primitive&&) = delete;
     Primitive& operator=(Primitive&&) = delete;
-    [[nodiscard]] virtual std::optional<SurfaceInteraction> intersect(const Ray& ray) const = 0;
-    [[nodiscard]] QVector3D color() const;
-    [[nodiscard]] QVector3D emission() const;
+    virtual auto intersect(const Ray& ray) const -> std::optional<SurfaceInteraction> = 0;
+    auto color() const -> Vector3D;
+    auto emission() const -> Vector3D;
 
 private:
-    QVector3D m_color;
-    QVector3D m_emission;
+    Vector3D m_color;
+    Vector3D m_emission;
 };
 
 } // namespace Inept::Core

@@ -28,10 +28,10 @@ class SphereTest : public QObject
 private slots:
     static void constructorTest()
     {
-        const QVector3D color {1.0f, 0.0f, 0.5f};
-        const QVector3D emission {0.0f, 0.5f, 1.0f};
-        const QVector3D position {0.5f, 1.0f, 0.0f};
-        const float size {2.0f};
+        const Inept::Core::Vector3D color {1.0, 0.0, 0.5};
+        const Inept::Core::Vector3D emission {0.0, 0.5, 1.0};
+        const Inept::Core::Vector3D position {0.5, 1.0, 0.0};
+        const double size {2.0};
         const Inept::Core::Sphere sphere(color, emission, position, size);
         QCOMPARE(sphere.color(), color);
         QCOMPARE(sphere.emission(), emission);

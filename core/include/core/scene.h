@@ -24,10 +24,10 @@ SOFTWARE. */
 #define SCENE_H
 
 #include "core/surfaceinteraction.h"
+#include "core/vector3d.h"
 #include <memory>
 #include <optional>
 #include <vector>
-#include <QVector3D>
 
 namespace Inept::Core {
 class Primitive;
@@ -35,14 +35,14 @@ class Ray;
 class Scene
 {
 public:
-    Scene(std::vector<std::unique_ptr<Primitive>>&& primitives, QVector3D camera);
-    [[nodiscard]] std::optional<SurfaceInteraction> intersect(const Ray& ray) const;
-    [[nodiscard]] QVector3D camera() const;
+    Scene(std::vector<std::unique_ptr<Primitive>>&& primitives, Vector3D camera);
+    auto intersect(const Ray& ray) const -> std::optional<SurfaceInteraction>;
+    auto camera() const -> Vector3D;
 
 private:
     std::vector<std::unique_ptr<Primitive>> m_primitives;
-    QVector3D m_camera;
-};
+    Vector3D m_camera;
+};;
 
 } // namespace Inept::Core
 

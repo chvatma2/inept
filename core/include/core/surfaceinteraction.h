@@ -23,22 +23,22 @@ SOFTWARE. */
 #ifndef SURFACEINTERACTION_H
 #define SURFACEINTERACTION_H
 
-#include <QVector3D>
+#include "core/vector3d.h"
 
 namespace Inept::Core {
 class Primitive;
 class SurfaceInteraction
 {
 public:
-    SurfaceInteraction(const Primitive& primitive, QVector3D point)
+    SurfaceInteraction(const Primitive& primitive, Vector3D point)
         : m_primitive {primitive}
         , m_point {point} {};
     const Primitive& primitive() const;
-    QVector3D point() const;
+    Vector3D point() const;
 
 private:
     const Primitive& m_primitive;
-    QVector3D m_point;
+    Vector3D m_point;
 };
 
 } // namespace Inept::Core

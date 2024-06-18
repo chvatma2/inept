@@ -31,7 +31,7 @@ class SurfaceInteractionTest : public QObject
 private slots:
     static void constructorTest()
     {
-        const QVector3D point {0.0, 0.0, 0.0};
+        const Inept::Core::Vector3D point {0.0, 0.0, 0.0};
         const Inept::Core::Primitive primitive;
         const Inept::Core::SurfaceInteraction interaction {primitive, point};
         QCOMPARE(interaction.point(), point);

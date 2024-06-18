@@ -3,7 +3,7 @@ find_package(
   COMPONENTS Test Core Gui
   REQUIRED)
 
-set(classes primitive ray sampler scene sphere surfaceinteraction)
+set(classes primitive ray sampler scene sphere surfaceinteraction vector3d)
 
 add_library(core STATIC)
 target_include_directories(core PUBLIC include)

@@ -23,12 +23,12 @@ Copyright(c) 2024 Martin Chvatal
 
 namespace Inept::Core {
 
-QVector3D Primitive::color() const
+Vector3D Primitive::color() const
 {
     return m_color;
 }
 
-QVector3D Primitive::emission() const
+Vector3D Primitive::emission() const
 {
     return m_emission;
 }

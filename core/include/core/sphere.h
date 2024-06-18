@@ -22,18 +22,18 @@ Copyright(c) 2024 Martin Chvatal
 #ifndef SPHERE_H
 #define SPHERE_H
 #include "core/primitive.h"
-#include <QVector3D>
+#include "core/vector3d.h"
 
 namespace Inept::Core {
 class Sphere : public Primitive
 {
 public:
-    Sphere(QVector3D color, QVector3D emission, QVector3D position, float radius);
-    [[nodiscard]] std::optional<SurfaceInteraction> intersect(const Ray& ray) const override;
+    Sphere(Vector3D color, Vector3D emission, Vector3D position, double radius);
+    auto intersect(const Ray& ray) const -> std::optional<SurfaceInteraction> override;
 
 private:
-    QVector3D m_position;
-    float m_radius {0.0};
-};
+    Vector3D m_position;
+    double m_radius {0.0};
+};;
 } // namespace Inept::Core
 #endif // SPHERE_H

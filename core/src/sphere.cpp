@@ -21,10 +21,11 @@ Copyright(c) 2024 Martin Chvatal
 
 #include "core/sphere.h"
 #include "core/ray.h"
+#include <QtGlobal>
 
 namespace Inept::Core {
 
-Sphere::Sphere(QVector3D color, QVector3D emission, QVector3D position, float radius)
+Sphere::Sphere(Vector3D color, Vector3D emission, Vector3D position, double radius)
     : Primitive {color, emission}
     , m_position {position}
     , m_radius {radius}

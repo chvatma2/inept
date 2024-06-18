@@ -28,8 +28,8 @@ class RayTest : public QObject
 private slots:
     static void constructorTest()
     {
-        const QVector3D origin {0.0, 0.0, 0.0};
-        const QVector3D direction {1.0, 0.0, 0.0};
+        const Inept::Core::Vector3D origin {0.0, 0.0, 0.0};
+        const Inept::Core::Vector3D direction {1.0, 0.0, 0.0};
         const Inept::Core::Ray ray {origin, direction};
         QCOMPARE(ray.origin(), origin);
         QCOMPARE(ray.direction(), direction);

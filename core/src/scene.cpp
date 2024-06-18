@@ -27,7 +27,7 @@ SOFTWARE. */
 
 namespace Inept::Core {
 
-Scene::Scene(std::vector<std::unique_ptr<Primitive>>&& primitives, QVector3D camera)
+Scene::Scene(std::vector<std::unique_ptr<Primitive>>&& primitives, Vector3D camera)
     : m_primitives {std::move(primitives)}
     , m_camera {camera}
 {
@@ -36,13 +36,13 @@ Scene::Scene(std::vector<std::unique_ptr<Primitive>>&& primitives, QVector3D cam
 std::optional<SurfaceInteraction> Scene::intersect(const Ray& ray) const
 {
     std::optional<SurfaceInteraction> result;
-    float closestDistance {std::numeric_limits<float>::max()};
+    double closestDistance {std::numeric_limits<double>::max()};
     for (auto& primitive : m_primitives) {
         auto interaction = primitive->intersect(ray);
         if (!interaction.has_value()) {
             continue;
         }
-        const float distance = (ray.origin() - interaction->point()).length();
+        const double distance = (ray.origin() - interaction->point()).length();
         if (distance < closestDistance) {
             closestDistance = distance;
             result.emplace(interaction.value());
@@ -51,7 +51,7 @@ std::optional<SurfaceInteraction> Scene::intersect(const Ray& ray) const
     return result;
 }
 
-QVector3D Scene::camera() const
+Vector3D Scene::camera() const
 {
     return m_camera;
 }

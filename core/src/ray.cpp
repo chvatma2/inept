@@ -22,12 +22,12 @@ Copyright(c) 2024 Martin Chvatal
 #include "core/ray.h"
 
 namespace Inept::Core {
-QVector3D Ray::origin() const
+auto Ray::origin() const -> Vector3D
 {
     return m_origin;
 }
 
-QVector3D Ray::direction() const
+auto Ray::direction() const -> Vector3D
 {
     return m_direction;
 }

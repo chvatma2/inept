@@ -28,7 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 class PrimitiveImpl : public Inept::Core::Primitive
 {
 public:
-    PrimitiveImpl(QVector3D color, QVector3D emission)
+    PrimitiveImpl(Inept::Core::Vector3D color, Inept::Core::Vector3D emission)
         : Primitive(color, emission) {};
     [[nodiscard]] std::optional<Inept::Core::SurfaceInteraction> intersect(const Inept::Core::Ray& ray) const override
     {
@@ -43,8 +43,8 @@ class PrimitiveTest : public QObject
 private slots:
     static void constructorTest()
     {
-        const QVector3D color {0.7f, 0.7f, 0.6f};
-        const QVector3D emission {0.1f, 0.0f, 0.0f};
+        const Inept::Core::Vector3D color {0.7, 0.7, 0.6};
+        const Inept::Core::Vector3D emission {0.1, 0.0, 0.0};
         const PrimitiveImpl primitive {color, emission};
         QCOMPARE(primitive.color(), color);
         QCOMPARE(primitive.emission(), emission);
