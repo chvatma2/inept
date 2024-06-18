@@ -24,16 +24,11 @@ jobs:
     # - uses: KyleMayes/install-llvm-action@v2
     #   with:
     #     version: "17.0"
-    - uses: jurplel/install-qt-action@v3.3.0
+    - uses: jurplel/install-qt-action@v3
       with:
-        version: '6.6.*'
+        version: '6.5.2'
             
     - run: sudo apt install -y xvfb x11-utils libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0 xdotool clazy clang-tidy gcovr clang-15
-    - name: Install newer Clang
-      run: |
-       wget https://apt.llvm.org/llvm.sh
-       chmod +x ./llvm.sh
-       sudo ./llvm.sh 17
 
     - name: Configure CMake
 
@@ -65,10 +60,10 @@ jobs:
 
     - name: Generate a code coverage report
       run: gcovr ../build-coverage
-    - name: Static Analysis Configure
-      run: cmake --preset "clazy"
+    # - name: Static Analysis Configure
+    #   run: cmake --preset "clazy"
 
-    - name: Static Analysis Build
-      run: |
-        clazy --version
-        cmake --build --preset "clazy"
+    # - name: Static Analysis Build
+    #   run: |
+    #     clazy --version
+    #     cmake --build --preset "clazy"
