@@ -20,10 +20,47 @@ Copyright(c) 2024 Martin Chvatal
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 // GCOV_EXCL_START
-#include <iostream>
+
+#include "core/scene.h"
+#include "core/sphere.h"
+#include <memory>
+
+auto setupCornellBox() -> Inept::Core::Scene
+{
+    std::vector<std::unique_ptr<Inept::Core::Primitive>> primitives;
+    // Define materials
+    // Material whiteMaterial; // Assuming you have a way to define colors and other properties
+    // Material redMaterial;
+    // Material greenMaterial;
+    // Material lightMaterial;
+
+    // Large spheres acting as walls, floor, and ceiling
+    // Note: The positions and sizes are symbolic and need to be adjusted based on your scene's scale
+    const Inept::Core::Vector3D noEmissions{0, 0, 0};
+    const Inept::Core::Vector3D whiteEmissions{200, 200, 200};
+    const Inept::Core::Vector3D white{1.0, 1.0, 1.0};
+    const Inept::Core::Vector3D red{1.0, 0, 0};
+    const Inept::Core::Vector3D green{0, 1.0, 0};
+    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{0, -10004, -20}, 10000.0, white, noEmissions)); // Floor
+    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{0, 10004, -20}, 10000, white, noEmissions)); // Ceiling
+    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{10004, 0, -20}, 10000, white, noEmissions)); // Right Wall
+    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{-10004, 0, -20}, 10000, white, noEmissions)); // Left Wall
+    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{0, 0, -10004}, 10000, white, noEmissions)); // Back Wall
+    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{0, 0, 10004}, 10000, white, noEmissions)); // Front Wall (Assuming the camera is inside the box)
+
+    // Smaller spheres inside the Cornell Box
+    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{-0.5, -0.5, -1}, 0.5, red, noEmissions));
+    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{0.5, -0.5, -1}, 0.5, green, noEmissions));
+
+    // Light source (represented as a small, bright sphere for simplicity)
+    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{0.0, 0.99, -2}, 0.2, white, whiteEmissions));
+
+    return {std::move(primitives), Inept::Core::Vector3D{0, 0, 0}};
+}
+
 auto main() -> int
 {
-    std::cout << "Hello World!" << '\n';
+    
     return 0;
 }
 // GCOV_EXCL_STOP

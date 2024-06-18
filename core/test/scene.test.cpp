@@ -33,7 +33,7 @@ private slots:
     static void constructorTest()
     {
         std::vector<std::unique_ptr<Inept::Core::Primitive>> primitives;
-        primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D(0,0,0), Inept::Core::Vector3D(0,0,0), Inept::Core::Vector3D(0,0,0), 1.0));
+        primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D(0,0,0), 1.0, Inept::Core::Vector3D(0,0,0), Inept::Core::Vector3D(0,0,0)));
         const Inept::Core::Vector3D camera {1.0, 0.0, 0.0};
         const Inept::Core::Scene scene {std::move(primitives), camera};
         QCOMPARE(scene.camera(), camera);

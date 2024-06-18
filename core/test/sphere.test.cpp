@@ -32,7 +32,7 @@ private slots:
         const Inept::Core::Vector3D emission {0.0, 0.5, 1.0};
         const Inept::Core::Vector3D position {0.5, 1.0, 0.0};
         const double size {2.0};
-        const Inept::Core::Sphere sphere(color, emission, position, size);
+        const Inept::Core::Sphere sphere(position, size, color, emission);
         QCOMPARE(sphere.color(), color);
         QCOMPARE(sphere.emission(), emission);
     }

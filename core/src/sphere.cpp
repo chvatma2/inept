@@ -25,7 +25,7 @@ Copyright(c) 2024 Martin Chvatal
 
 namespace Inept::Core {
 
-Sphere::Sphere(const Vector3D& color, const Vector3D& emission, const Vector3D& position, double radius)
+Sphere::Sphere(const Vector3D& position, double radius, const Vector3D& color, const Vector3D& emission)
     : Primitive {color, emission}
     , m_position {position}
     , m_radius {radius}
