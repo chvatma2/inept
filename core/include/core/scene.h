@@ -35,7 +35,7 @@ class Ray;
 class Scene
 {
 public:
-    Scene(std::vector<std::unique_ptr<Primitive>>&& primitives, Vector3D camera);
+    Scene(std::vector<std::unique_ptr<Primitive>>&& primitives, const Vector3D& camera);
     auto intersect(const Ray& ray) const -> std::optional<SurfaceInteraction>;
     auto camera() const -> Vector3D;
 

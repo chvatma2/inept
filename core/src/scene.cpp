@@ -27,7 +27,7 @@ SOFTWARE. */
 
 namespace Inept::Core {
 
-Scene::Scene(std::vector<std::unique_ptr<Primitive>>&& primitives, Vector3D camera)
+Scene::Scene(std::vector<std::unique_ptr<Primitive>>&& primitives, const Vector3D& camera)
     : m_primitives {std::move(primitives)}
     , m_camera {camera}
 {

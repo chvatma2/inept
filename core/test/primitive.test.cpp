@@ -28,9 +28,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 class PrimitiveImpl : public Inept::Core::Primitive
 {
 public:
-    PrimitiveImpl(Inept::Core::Vector3D color, Inept::Core::Vector3D emission)
+    PrimitiveImpl(const Inept::Core::Vector3D& color, const Inept::Core::Vector3D& emission)
         : Primitive(color, emission) {};
-    [[nodiscard]] std::optional<Inept::Core::SurfaceInteraction> intersect(const Inept::Core::Ray& ray) const override
+    [[nodiscard]] std::optional<Inept::Core::SurfaceInteraction> intersect(const Inept::Core::Ray& ray) const noexcept override
     {
         Q_UNUSED(ray)
         return std::nullopt;

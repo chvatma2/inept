@@ -30,15 +30,18 @@ class Primitive;
 class SurfaceInteraction
 {
 public:
-    SurfaceInteraction(const Primitive& primitive, Vector3D point)
+    SurfaceInteraction(const Primitive& primitive, const Vector3D& point, const Vector3D& normal) noexcept
         : m_primitive {primitive}
-        , m_point {point} {};
-    const Primitive& primitive() const;
-    Vector3D point() const;
+        , m_point {point}
+        , m_normal {normal} {};
+    [[nodiscard]] auto primitive() const noexcept -> const Primitive&;
+    [[nodiscard]] auto point() const noexcept -> Vector3D;
+    [[nodiscard]] auto normal() const noexcept -> Vector3D;
 
 private:
     const Primitive& m_primitive;
     Vector3D m_point;
+    Vector3D m_normal;
 };
 
 } // namespace Inept::Core

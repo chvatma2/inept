@@ -31,26 +31,28 @@ class TestVector3D : public QObject {
     Q_OBJECT
 
 private slots:
-    void testAddition();
-    void testAdditionWithZero();
-    void testAdditionWithNegative();
-    void testSubtraction();
-    void testMultiplication();
-    void testDivision();
-    void testAdditionWithLargeValues();
-    void testSubtractionWithSmallValues();
-    void testMultiplicationWithZeroScalar();
-    void testEqualityOperator();
-    void testDivisionByZeroScalarAndNaN();
-    void testLength();
+    static void testAddition();
+    static void testAdditionWithZero();
+    static void testAdditionWithNegative();
+    static void testSubtraction();
+    static void testMultiplication();
+    static void testDivision();
+    static void testAdditionWithLargeValues();
+    static void testSubtractionWithSmallValues();
+    static void testMultiplicationWithZeroScalar();
+    static void testEqualityOperator();
+    static void testDivisionByZeroScalarAndNaN();
+    static void testLength();
+    static void testDotProduct();
+    static void testNormalized();
 };
 
 /// @brief Test the addition operator of the Vector3D class.
 /// @details The test checks if the addition operator of the Vector3D class returns the correct result.
 void TestVector3D::testAddition() {
-    Inept::Core::Vector3D v1(1.0, 2.0, 3.0);
-    Inept::Core::Vector3D v2(4.0, 5.0, 6.0);
-    Inept::Core::Vector3D result = v1 + v2;
+    const Inept::Core::Vector3D v1(1.0, 2.0, 3.0);
+    const Inept::Core::Vector3D v2(4.0, 5.0, 6.0);
+    const Inept::Core::Vector3D result = v1 + v2;
 
     QCOMPARE(result.x(), 5.0);
     QCOMPARE(result.y(), 7.0);
@@ -60,9 +62,9 @@ void TestVector3D::testAddition() {
 /// @brief Test the addition operator of the Vector3D class with zero.
 /// @details The test checks if the addition operator of the Vector3D class returns the correct result when adding a vector with a zero vector.
 void TestVector3D::testAdditionWithZero() {
-    Inept::Core::Vector3D v1(1.0, 2.0, 3.0);
-    Inept::Core::Vector3D v2(0.0, 0.0, 0.0);
-    Inept::Core::Vector3D result = v1 + v2;
+    const Inept::Core::Vector3D v1(1.0, 2.0, 3.0);
+    const Inept::Core::Vector3D v2(0.0, 0.0, 0.0);
+    const Inept::Core::Vector3D result = v1 + v2;
 
     QCOMPARE(result.x(), 1.0);
     QCOMPARE(result.y(), 2.0);
@@ -72,9 +74,9 @@ void TestVector3D::testAdditionWithZero() {
 /// @brief Test the addition operator of the Vector3D class with negative values.
 /// @details The test checks if the addition operator of the Vector3D class returns the correct result when adding a vector with a negative vector.
 void TestVector3D::testAdditionWithNegative() {
-    Inept::Core::Vector3D v1(1.0, 2.0, 3.0);
-    Inept::Core::Vector3D v2(-1.0, -2.0, -3.0);
-    Inept::Core::Vector3D result = v1 + v2;
+    const Inept::Core::Vector3D v1(1.0, 2.0, 3.0);
+    const Inept::Core::Vector3D v2(-1.0, -2.0, -3.0);
+    const Inept::Core::Vector3D result = v1 + v2;
 
     QCOMPARE(result.x(), 0.0);
     QCOMPARE(result.y(), 0.0);
@@ -84,9 +86,9 @@ void TestVector3D::testAdditionWithNegative() {
 /// @brief Test the subtraction operator of the Vector3D class.
 /// @details The test checks if the subtraction operator of the Vector3D class returns the correct result.
 void TestVector3D::testSubtraction() {
-    Inept::Core::Vector3D v1(5.0, 7.0, 9.0);
-    Inept::Core::Vector3D v2(2.0, 3.0, 4.0);
-    Inept::Core::Vector3D result = v1 - v2;
+    const Inept::Core::Vector3D v1(5.0, 7.0, 9.0);
+    const Inept::Core::Vector3D v2(2.0, 3.0, 4.0);
+    const Inept::Core::Vector3D result = v1 - v2;
     QCOMPARE(result.x(), 3.0);
     QCOMPARE(result.y(), 4.0);
     QCOMPARE(result.z(), 5.0);
@@ -95,9 +97,9 @@ void TestVector3D::testSubtraction() {
 /// @brief Test the multiplication operator of the Vector3D class.
 /// @details The test checks if the multiplication operator of the Vector3D class returns the correct result.
 void TestVector3D::testMultiplication() {
-    Inept::Core::Vector3D v1(2.0, 3.0, 4.0);
-    double scalar = 2.5;
-    Inept::Core::Vector3D result = v1 * scalar;
+    const Inept::Core::Vector3D v1(2.0, 3.0, 4.0);
+    const double scalar = 2.5;
+    const Inept::Core::Vector3D result = v1 * scalar;
     QCOMPARE(result.x(), 5.0);
     QCOMPARE(result.y(), 7.5);
     QCOMPARE(result.z(), 10.0);
@@ -106,9 +108,9 @@ void TestVector3D::testMultiplication() {
 /// @brief Test the division operator of the Vector3D class.
 /// @details The test checks if the division operator of the Vector3D class returns the correct result.
 void TestVector3D::testDivision() {
-    Inept::Core::Vector3D v1(10.0, 15.0, 20.0);
-    double scalar = 2.0;
-    Inept::Core::Vector3D result = v1 / scalar;
+    const Inept::Core::Vector3D v1(10.0, 15.0, 20.0);
+    const double scalar = 2.0;
+    const Inept::Core::Vector3D result = v1 / scalar;
     QCOMPARE(result.x(), 5.0);
     QCOMPARE(result.y(), 7.5);
     QCOMPARE(result.z(), 10.0);
@@ -117,9 +119,9 @@ void TestVector3D::testDivision() {
 /// @brief Test the addition operator of the Vector3D class with large values.
 /// @details The test checks if the addition operator of the Vector3D class returns the correct result when adding vectors with large values.
 void TestVector3D::testAdditionWithLargeValues() {
-    Inept::Core::Vector3D v1(1e9, 1e9, 1e9);
-    Inept::Core::Vector3D v2(1e9, 1e9, 1e9);
-    Inept::Core::Vector3D result = v1 + v2;
+    const Inept::Core::Vector3D v1(1e9, 1e9, 1e9);
+    const Inept::Core::Vector3D v2(1e9, 1e9, 1e9);
+    const Inept::Core::Vector3D result = v1 + v2;
     QCOMPARE(result.x(), 2e9);
     QCOMPARE(result.y(), 2e9);
     QCOMPARE(result.z(), 2e9);
@@ -128,9 +130,9 @@ void TestVector3D::testAdditionWithLargeValues() {
 /// @brief Test the subtraction operator of the Vector3D class with small values.
 /// @details The test checks if the subtraction operator of the Vector3D class returns the correct result when subtracting vectors with small values.
 void TestVector3D::testSubtractionWithSmallValues() {
-    Inept::Core::Vector3D v1(1e-9, 1e-9, 1e-9);
-    Inept::Core::Vector3D v2(1e-9, 1e-9, 1e-9);
-    Inept::Core::Vector3D result = v1 - v2;
+    const Inept::Core::Vector3D v1(1e-9, 1e-9, 1e-9);
+    const Inept::Core::Vector3D v2(1e-9, 1e-9, 1e-9);
+    const Inept::Core::Vector3D result = v1 - v2;
     QCOMPARE(result.x(), 0.0);
     QCOMPARE(result.y(), 0.0);
     QCOMPARE(result.z(), 0.0);
@@ -139,9 +141,9 @@ void TestVector3D::testSubtractionWithSmallValues() {
 /// @brief Test the multiplication operator of the Vector3D class with zero scalar.
 /// @details The test checks if the multiplication operator of the Vector3D class returns the correct result when multiplying a vector with a zero scalar.
 void TestVector3D::testMultiplicationWithZeroScalar() {
-    Inept::Core::Vector3D v1(2.0, 3.0, 4.0);
-    double scalar = 0.0;
-    Inept::Core::Vector3D result = v1 * scalar;
+    const Inept::Core::Vector3D v1(2.0, 3.0, 4.0);
+    const double scalar = 0.0;
+    const Inept::Core::Vector3D result = v1 * scalar;
     QCOMPARE(result.x(), 0.0);
     QCOMPARE(result.y(), 0.0);
     QCOMPARE(result.z(), 0.0);
@@ -150,58 +152,137 @@ void TestVector3D::testMultiplicationWithZeroScalar() {
 /// @brief Test the division operator of the Vector3D class with zero scalar and NaN.
 /// @details The test checks if the division operator of the Vector3D class throws an exception when dividing a vector by a zero scalar or a NaN scalar.
 void TestVector3D::testDivisionByZeroScalarAndNaN() {
-    Inept::Core::Vector3D v1(10.0, 15.0, 20.0);
-    double scalar = 0.0;
-    QVERIFY_EXCEPTION_THROWN({
-        [[maybe_unused]] Inept::Core::Vector3D result = v1 / scalar;
-    }, std::invalid_argument);
-    double nanScalar = std::numeric_limits<double>::quiet_NaN();
-    QVERIFY_EXCEPTION_THROWN({
-        [[maybe_unused]] Inept::Core::Vector3D result = v1 / nanScalar;
-    }, std::invalid_argument);
+    const Inept::Core::Vector3D v1(10.0, 15.0, 20.0);
+    const double scalar = 0.0;
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, {
+        [[maybe_unused]] const Inept::Core::Vector3D result = v1 / scalar;
+    });
+    const double nanScalar = std::numeric_limits<double>::quiet_NaN();
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, {
+        [[maybe_unused]] const Inept::Core::Vector3D result = v1 / nanScalar;
+    });
 }
 
 /// @brief Test the equality operator of the Vector3D class.
 /// @details The test checks if the equality operator of the Vector3D class returns the correct result.
 void TestVector3D::testEqualityOperator() {
-    Inept::Core::Vector3D v1(1.0, 2.0, 3.0);
-    Inept::Core::Vector3D v2(1.0, 2.0, 3.0);
+    const Inept::Core::Vector3D v1(1.0, 2.0, 3.0);
+    const Inept::Core::Vector3D v2(1.0, 2.0, 3.0);
     QVERIFY(v1 == v2);
 
-    Inept::Core::Vector3D v3(4.0, 5.0, 6.0);
+    const Inept::Core::Vector3D v3(4.0, 5.0, 6.0);
     QVERIFY(!(v1 == v3));
 }
 
 /// @brief Test the length() function of the Vector3D class.
 /// @details The test checks if the length() function of the Vector3D class returns the correct result.
 void TestVector3D::testLength() {
-    Inept::Core::Vector3D v1(3.0, 4.0, 0.0);
-    double expectedLength1 = 5.0;
+    const Inept::Core::Vector3D v1(3.0, 4.0, 0.0);
+    const double expectedLength1 = 5.0;
     QCOMPARE(v1.length(), expectedLength1);
 
-    Inept::Core::Vector3D v2(0.0, 0.0, 0.0);
-    double expectedLength2 = 0.0;
+    const Inept::Core::Vector3D v2(0.0, 0.0, 0.0);
+    const double expectedLength2 = 0.0;
     QCOMPARE(v2.length(), expectedLength2);
 
-    Inept::Core::Vector3D v3(1.0, 0.0, 0.0);
-    double expectedLength3 = 1.0;
+    const Inept::Core::Vector3D v3(1.0, 0.0, 0.0);
+    const double expectedLength3 = 1.0;
     QCOMPARE(v3.length(), expectedLength3);
 
-    Inept::Core::Vector3D v4(0.0, 1.0, 0.0);
-    double expectedLength4 = 1.0;
+    const Inept::Core::Vector3D v4(0.0, 1.0, 0.0);
+    const double expectedLength4 = 1.0;
     QCOMPARE(v4.length(), expectedLength4);
 
-    Inept::Core::Vector3D v5(0.0, 0.0, 1.0);
-    double expectedLength5 = 1.0;
+    const Inept::Core::Vector3D v5(0.0, 0.0, 1.0);
+    const double expectedLength5 = 1.0;
     QCOMPARE(v5.length(), expectedLength5);
 
-    Inept::Core::Vector3D v6(1e9, 1e9, 1e9);
-    double expectedLength6 = 1.73205080757e9;
+    const Inept::Core::Vector3D v6(1e9, 1e9, 1e9);
+    const double expectedLength6 = 1.73205080757e9;
     QCOMPARE(v6.length(), expectedLength6);
 
-    Inept::Core::Vector3D v7(1e-9, 1e-9, 1e-9);
-    double expectedLength7 = 1.73205080757e-9;
+    const Inept::Core::Vector3D v7(1e-9, 1e-9, 1e-9);
+    const double expectedLength7 = 1.73205080757e-9;
     QCOMPARE(v7.length(), expectedLength7);
+}
+
+/// @brief Test the dot product of the Vector3D class.
+/// @details The test checks if the dot product of the Vector3D class returns the correct result.
+void TestVector3D::testDotProduct() {
+    const Inept::Core::Vector3D v1(1.0, 2.0, 3.0);
+    const Inept::Core::Vector3D v2(4.0, 5.0, 6.0);
+    const double expectedDotProduct = 32.0;
+    QCOMPARE(v1.dot(v2), expectedDotProduct);
+    
+    const Inept::Core::Vector3D v3(0.0, 0.0, 0.0);
+    const Inept::Core::Vector3D v4(1.0, 2.0, 3.0);
+    const double expectedDotProduct2 = 0.0;
+    QCOMPARE(v3.dot(v4), expectedDotProduct2);
+    
+    const Inept::Core::Vector3D v5(-1.0, -2.0, -3.0);
+    const Inept::Core::Vector3D v6(1.0, 2.0, 3.0);
+    const double expectedDotProduct3 = -14.0;
+    QCOMPARE(v5.dot(v6), expectedDotProduct3);
+}
+
+/// @brief Test the normalized() function of the Vector3D class.
+/// @details The test checks if the normalized() function of the Vector3D class returns the correct result.
+void TestVector3D::testNormalized() {
+    const Inept::Core::Vector3D v1(3.0, 4.0, 0.0);
+    const Inept::Core::Vector3D normalizedV1 = v1.normalized();
+    const double expectedLength1 = 1.0;
+    QCOMPARE(normalizedV1.length(), expectedLength1);
+    QCOMPARE(normalizedV1.x(), 0.6);
+    QCOMPARE(normalizedV1.y(), 0.8);
+    QCOMPARE(normalizedV1.z(), 0.0);
+
+    const Inept::Core::Vector3D v2(0.0, 0.0, 0.0);
+    const Inept::Core::Vector3D normalizedV2 = v2.normalized();
+    const double expectedLength2 = 0.0;
+    QCOMPARE(normalizedV2.length(), expectedLength2);
+    QCOMPARE(normalizedV2.x(), 0.0);
+    QCOMPARE(normalizedV2.y(), 0.0);
+    QCOMPARE(normalizedV2.z(), 0.0);
+
+    const Inept::Core::Vector3D v3(1.0, 0.0, 0.0);
+    const Inept::Core::Vector3D normalizedV3 = v3.normalized();
+    const double expectedLength3 = 1.0;
+    QCOMPARE(normalizedV3.length(), expectedLength3);
+    QCOMPARE(normalizedV3.x(), 1.0);
+    QCOMPARE(normalizedV3.y(), 0.0);
+    QCOMPARE(normalizedV3.z(), 0.0);
+
+    const Inept::Core::Vector3D v4(0.0, 1.0, 0.0);
+    const Inept::Core::Vector3D normalizedV4 = v4.normalized();
+    const double expectedLength4 = 1.0;
+    QCOMPARE(normalizedV4.length(), expectedLength4);
+    QCOMPARE(normalizedV4.x(), 0.0);
+    QCOMPARE(normalizedV4.y(), 1.0);
+    QCOMPARE(normalizedV4.z(), 0.0);
+
+    const Inept::Core::Vector3D v5(0.0, 0.0, 1.0);
+    const Inept::Core::Vector3D normalizedV5 = v5.normalized();
+    const double expectedLength5 = 1.0;
+    QCOMPARE(normalizedV5.length(), expectedLength5);
+    QCOMPARE(normalizedV5.x(), 0.0);
+    QCOMPARE(normalizedV5.y(), 0.0);
+    QCOMPARE(normalizedV5.z(), 1.0);
+
+    const Inept::Core::Vector3D v6(1e9, 1e9, 1e9);
+    const Inept::Core::Vector3D normalizedV6 = v6.normalized();
+    const double expectedLength6 = 1.0;
+    QCOMPARE(normalizedV6.length(), expectedLength6);
+    QCOMPARE(normalizedV6.x(), 0.57735026919);
+    QCOMPARE(normalizedV6.y(), 0.57735026919);
+    QCOMPARE(normalizedV6.z(), 0.57735026919);
+
+    const Inept::Core::Vector3D v7(1e-9, 1e-9, 1e-9);
+    const Inept::Core::Vector3D normalizedV7 = v7.normalized();
+    const double expectedLength7 = 1.0;
+    QCOMPARE(normalizedV7.length(), expectedLength7);
+    QCOMPARE(normalizedV7.x(), 0.57735026919);
+    QCOMPARE(normalizedV7.y(), 0.57735026919);
+    QCOMPARE(normalizedV7.z(), 0.57735026919);
 }
 
 QTEST_MAIN(TestVector3D)

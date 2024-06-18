@@ -21,6 +21,8 @@ public:
     [[nodiscard]] auto operator/(double scalar) const -> Vector3D;
     [[nodiscard]] auto operator==(const Vector3D& other) const noexcept -> bool;
     [[nodiscard]] auto length() const noexcept -> double;
+    [[nodiscard]] auto dot(const Vector3D& other) const noexcept -> double;
+    [[nodiscard]] auto normalized() const noexcept -> Vector3D;
 
 private:
     double m_x{0.0};

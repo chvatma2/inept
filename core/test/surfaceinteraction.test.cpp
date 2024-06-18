@@ -32,8 +32,9 @@ private slots:
     static void constructorTest()
     {
         const Inept::Core::Vector3D point {0.0, 0.0, 0.0};
+        const Inept::Core::Vector3D normal {0.0, 0.0, 0.0};
         const Inept::Core::Primitive primitive;
-        const Inept::Core::SurfaceInteraction interaction {primitive, point};
+        const Inept::Core::SurfaceInteraction interaction {primitive, point, normal};
         QCOMPARE(interaction.point(), point);
         QCOMPARE(&interaction.primitive(), &primitive);
     }

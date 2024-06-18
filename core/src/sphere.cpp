@@ -25,16 +25,51 @@ Copyright(c) 2024 Martin Chvatal
 
 namespace Inept::Core {
 
-Sphere::Sphere(Vector3D color, Vector3D emission, Vector3D position, double radius)
+Sphere::Sphere(const Vector3D& color, const Vector3D& emission, const Vector3D& position, double radius)
     : Primitive {color, emission}
     , m_position {position}
     , m_radius {radius}
 {
 }
 
-std::optional<SurfaceInteraction> Sphere::intersect(const Ray& ray) const
+auto Sphere::intersect(const Ray& ray) const noexcept -> std::optional<SurfaceInteraction>
 {
-    Q_UNUSED(ray)
+    Q_UNUSED(ray);
+    // Calculate the direction from the ray origin to the sphere center
+    const Vector3D oc = ray.origin() - m_position;
+
+    // Calculate the coefficients of the quadratic equation
+    const double a = ray.direction().dot(ray.direction());
+    const double b = 2.0 * oc.dot(ray.direction());
+    const double c = oc.dot(oc) - m_radius * m_radius;
+
+    // Calculate the discriminant
+    const double discriminant = b * b - 4 * a * c;
+
+    // Check if the ray intersects with the sphere
+    if (discriminant > 0) {
+        // Calculate the two solutions of the quadratic equation
+        const double t1 = (-b - std::sqrt(discriminant)) / (2.0 * a);
+        const double t2 = (-b + std::sqrt(discriminant)) / (2.0 * a);
+
+        // Check if the solutions are within the valid range
+        if (t1 > 0 || t2 > 0) {
+            // Choose the closest intersection point
+            const double t = (t1 > 0) ? t1 : t2;
+
+            // Calculate the intersection point
+            const Vector3D intersectionPoint = ray.origin() + ray.direction() * t;
+
+            // Calculate the surface normal at the intersection point
+            const Vector3D surfaceNormal = (intersectionPoint - m_position).normalized();
+
+            // Create a SurfaceInteraction object with the intersection information
+            return SurfaceInteraction(*this, intersectionPoint, surfaceNormal);
+        }
+    }
+
+    // No intersection with the sphere
+    return std::nullopt;
     return {};
 }
 } // namespace Inept::Core

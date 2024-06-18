@@ -25,14 +25,19 @@ SOFTWARE. */
 
 namespace Inept::Core {
 
-const Primitive& SurfaceInteraction::primitive() const
+auto SurfaceInteraction::primitive() const noexcept -> const Primitive&
 {
     return m_primitive;
 }
 
-Vector3D SurfaceInteraction::point() const
+auto SurfaceInteraction::point() const noexcept -> Vector3D
 {
     return m_point;
+}
+
+auto SurfaceInteraction::normal() const noexcept -> Vector3D
+{
+    return m_normal;
 }
 
 } // namespace Inept::Core

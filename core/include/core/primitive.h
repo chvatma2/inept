@@ -32,7 +32,7 @@ namespace Inept::Core {
 class Primitive
 {
 public:
-    Primitive(Vector3D color, Vector3D emission)
+    Primitive(const Vector3D& color, const Vector3D& emission)
         : m_color {color}
         , m_emission {emission} {};
     virtual ~Primitive() = default;
@@ -40,9 +40,9 @@ public:
     Primitive& operator=(const Primitive&) = delete;
     Primitive(Primitive&&) = delete;
     Primitive& operator=(Primitive&&) = delete;
-    virtual auto intersect(const Ray& ray) const -> std::optional<SurfaceInteraction> = 0;
-    auto color() const -> Vector3D;
-    auto emission() const -> Vector3D;
+    [[nodiscard]] virtual auto intersect(const Ray& ray) const noexcept -> std::optional<SurfaceInteraction> = 0;
+    [[nodiscard]] auto color() const noexcept -> Vector3D;
+    [[nodiscard]] auto emission() const noexcept -> Vector3D;
 
 private:
     Vector3D m_color;

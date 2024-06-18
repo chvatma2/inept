@@ -70,8 +70,7 @@
             },
             "environment": {
                 "CXX": "clazy",
-                "CCACHE_DISABLE": "ON",
-                "CLANGXX": "clang++-17; clazy"
+                "CCACHE_DISABLE": "ON"
             }
         },
         {

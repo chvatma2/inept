@@ -28,7 +28,7 @@ namespace Inept::Core {
 class Ray
 {
 public:
-    Ray(Vector3D origin, Vector3D direction)
+    Ray(const Vector3D& origin, const Vector3D& direction)
         : m_origin(origin)
         , m_direction(direction) {};
     [[nodiscard]] auto origin() const -> Vector3D;
