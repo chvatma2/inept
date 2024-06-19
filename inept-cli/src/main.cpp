@@ -54,8 +54,8 @@ auto setupCornellBox() -> Inept::Core::Scene
 
     // Light source (represented as a small, bright sphere for simplicity)
     primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{0.0, 0.99, -2}, 0.2, white, whiteEmissions));
-
-    return {std::move(primitives), Inept::Core::Vector3D{0, 0, 0}};
+    const Inept::Core::Camera camera{Inept::Core::Vector3D{0.0, 0.0, 0.0}, Inept::Core::Vector3D{0.0, 0.0, -1.0}, Inept::Core::Vector3D{0.0, 1.0, 0.0}, 90.0, 16.0 / 9.0, 0.1};
+    return {std::move(primitives), camera};
 }
 
 auto main() -> int

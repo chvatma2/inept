@@ -25,6 +25,7 @@ SOFTWARE. */
 
 #include "core/surfaceinteraction.h"
 #include "core/vector3d.h"
+#include "core/camera.h"
 #include <memory>
 #include <optional>
 #include <vector>
@@ -35,14 +36,14 @@ class Ray;
 class Scene
 {
 public:
-    Scene(std::vector<std::unique_ptr<Primitive>>&& primitives, const Vector3D& camera);
+    Scene(std::vector<std::unique_ptr<Primitive>>&& primitives, const Camera& camera);
     auto intersect(const Ray& ray) const -> std::optional<SurfaceInteraction>;
-    auto camera() const -> Vector3D;
+    auto camera() const -> const Camera&;
 
 private:
     std::vector<std::unique_ptr<Primitive>> m_primitives;
-    Vector3D m_camera;
-};;
+    Camera m_camera;
+};
 
 } // namespace Inept::Core
 

@@ -1,4 +1,5 @@
-/* MIT License
+/*
+MIT License
 
 Copyright (c) 2024 Martin Chvatal
 
@@ -18,42 +19,33 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE. */
+SOFTWARE.
+*/
+
+#ifndef INTEGRATOR_H
+#define INTEGRATOR_H
 
 #include "core/scene.h"
-#include "core/primitive.h"
 #include "core/ray.h"
-#include <limits>
+#include <QtGlobal>
 
 namespace Inept::Core {
 
-Scene::Scene(std::vector<std::unique_ptr<Primitive>>&& primitives, const Camera& camera)
-    : m_primitives {std::move(primitives)}
-    , m_camera {camera}
+struct IntegratorConfiguration
 {
-}
+    quint32 width;
+    quint32 height;
+};
 
-std::optional<SurfaceInteraction> Scene::intersect(const Ray& ray) const
+class Integrator
 {
-    std::optional<SurfaceInteraction> result;
-    double closestDistance {std::numeric_limits<double>::max()};
-    for (auto& primitive : m_primitives) {
-        auto interaction = primitive->intersect(ray);
-        if (!interaction.has_value()) {
-            continue;
-        }
-        const double distance = (ray.origin() - interaction->point()).length();
-        if (distance < closestDistance) {
-            closestDistance = distance;
-            result.emplace(interaction.value());
-        }
-    }
-    return result;
-}
+public:
+    Integrator(const IntegratorConfiguration& configuration);
+    void render(const Scene& scene) const;
 
-auto Scene::camera() const -> const Camera&
-{
-    return m_camera;
-}
+    private:
+        IntegratorConfiguration m_configuration;
 
 } // namespace Inept::Core
+
+#endif // INTEGRATOR_H

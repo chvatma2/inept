@@ -61,7 +61,7 @@ auto Sphere::intersect(const Ray& ray) const noexcept -> std::optional<SurfaceIn
             const Vector3D intersectionPoint = ray.origin() + ray.direction() * t;
 
             // Calculate the surface normal at the intersection point
-            const Vector3D surfaceNormal = (intersectionPoint - m_position).normalized();
+            const Vector3D surfaceNormal = (intersectionPoint - m_position).normalize();
 
             // Create a SurfaceInteraction object with the intersection information
             return SurfaceInteraction(*this, intersectionPoint, surfaceNormal);

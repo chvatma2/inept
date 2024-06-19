@@ -43,7 +43,7 @@ auto Vector3D::dot(const Vector3D& other) const noexcept -> double
     return m_x * other.m_x + m_y * other.m_y + m_z * other.m_z;
 }
 
-auto Vector3D::normalized() const noexcept -> Vector3D
+auto Vector3D::normalize() const noexcept -> Vector3D
 {
     const double len = length();
     if (len == 0.0) {
@@ -51,5 +51,11 @@ auto Vector3D::normalized() const noexcept -> Vector3D
     }
     return Vector3D{m_x / len, m_y / len, m_z / len};
 }
+
+auto Vector3D::cross(const Vector3D& other) const noexcept -> Vector3D
+{
+    return Vector3D{m_y * other.m_z - m_z * other.m_y, m_z * other.m_x - m_x * other.m_z, m_x * other.m_y - m_y * other.m_x};   
+}
+
 
 } // namespace Inept::Core

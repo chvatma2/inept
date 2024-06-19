@@ -45,6 +45,7 @@ private slots:
     static void testLength();
     static void testDotProduct();
     static void testNormalized();
+    static void testCrossProduct();
 };
 
 /// @brief Test the addition operator of the Vector3D class.
@@ -229,7 +230,7 @@ void TestVector3D::testDotProduct() {
 /// @details The test checks if the normalized() function of the Vector3D class returns the correct result.
 void TestVector3D::testNormalized() {
     const Inept::Core::Vector3D v1(3.0, 4.0, 0.0);
-    const Inept::Core::Vector3D normalizedV1 = v1.normalized();
+    const Inept::Core::Vector3D normalizedV1 = v1.normalize();
     const double expectedLength1 = 1.0;
     QCOMPARE(normalizedV1.length(), expectedLength1);
     QCOMPARE(normalizedV1.x(), 0.6);
@@ -237,7 +238,7 @@ void TestVector3D::testNormalized() {
     QCOMPARE(normalizedV1.z(), 0.0);
 
     const Inept::Core::Vector3D v2(0.0, 0.0, 0.0);
-    const Inept::Core::Vector3D normalizedV2 = v2.normalized();
+    const Inept::Core::Vector3D normalizedV2 = v2.normalize();
     const double expectedLength2 = 0.0;
     QCOMPARE(normalizedV2.length(), expectedLength2);
     QCOMPARE(normalizedV2.x(), 0.0);
@@ -245,7 +246,7 @@ void TestVector3D::testNormalized() {
     QCOMPARE(normalizedV2.z(), 0.0);
 
     const Inept::Core::Vector3D v3(1.0, 0.0, 0.0);
-    const Inept::Core::Vector3D normalizedV3 = v3.normalized();
+    const Inept::Core::Vector3D normalizedV3 = v3.normalize();
     const double expectedLength3 = 1.0;
     QCOMPARE(normalizedV3.length(), expectedLength3);
     QCOMPARE(normalizedV3.x(), 1.0);
@@ -253,7 +254,7 @@ void TestVector3D::testNormalized() {
     QCOMPARE(normalizedV3.z(), 0.0);
 
     const Inept::Core::Vector3D v4(0.0, 1.0, 0.0);
-    const Inept::Core::Vector3D normalizedV4 = v4.normalized();
+    const Inept::Core::Vector3D normalizedV4 = v4.normalize();
     const double expectedLength4 = 1.0;
     QCOMPARE(normalizedV4.length(), expectedLength4);
     QCOMPARE(normalizedV4.x(), 0.0);
@@ -261,7 +262,7 @@ void TestVector3D::testNormalized() {
     QCOMPARE(normalizedV4.z(), 0.0);
 
     const Inept::Core::Vector3D v5(0.0, 0.0, 1.0);
-    const Inept::Core::Vector3D normalizedV5 = v5.normalized();
+    const Inept::Core::Vector3D normalizedV5 = v5.normalize();
     const double expectedLength5 = 1.0;
     QCOMPARE(normalizedV5.length(), expectedLength5);
     QCOMPARE(normalizedV5.x(), 0.0);
@@ -269,7 +270,7 @@ void TestVector3D::testNormalized() {
     QCOMPARE(normalizedV5.z(), 1.0);
 
     const Inept::Core::Vector3D v6(1e9, 1e9, 1e9);
-    const Inept::Core::Vector3D normalizedV6 = v6.normalized();
+    const Inept::Core::Vector3D normalizedV6 = v6.normalize();
     const double expectedLength6 = 1.0;
     QCOMPARE(normalizedV6.length(), expectedLength6);
     QCOMPARE(normalizedV6.x(), 0.57735026919);
@@ -277,12 +278,36 @@ void TestVector3D::testNormalized() {
     QCOMPARE(normalizedV6.z(), 0.57735026919);
 
     const Inept::Core::Vector3D v7(1e-9, 1e-9, 1e-9);
-    const Inept::Core::Vector3D normalizedV7 = v7.normalized();
+    const Inept::Core::Vector3D normalizedV7 = v7.normalize();
     const double expectedLength7 = 1.0;
     QCOMPARE(normalizedV7.length(), expectedLength7);
     QCOMPARE(normalizedV7.x(), 0.57735026919);
     QCOMPARE(normalizedV7.y(), 0.57735026919);
     QCOMPARE(normalizedV7.z(), 0.57735026919);
+}
+
+/// @brief Test the cross product of the Vector3D class.
+/// @details The test checks if the cross product of the Vector3D class returns the correct result.
+void TestVector3D::testCrossProduct() {
+    const Inept::Core::Vector3D v1(1.0, 0.0, 0.0);
+    const Inept::Core::Vector3D v2(0.0, 1.0, 0.0);
+    const Inept::Core::Vector3D expectedCrossProduct1(0.0, 0.0, 1.0);
+    QCOMPARE(v1.cross(v2), expectedCrossProduct1);
+    
+    const Inept::Core::Vector3D v3(2.0, 3.0, 4.0);
+    const Inept::Core::Vector3D v4(5.0, 6.0, 7.0);
+    const Inept::Core::Vector3D expectedCrossProduct2(-3.0, 6.0, -3.0);
+    QCOMPARE(v3.cross(v4), expectedCrossProduct2);
+    
+    const Inept::Core::Vector3D v5(0.0, 0.0, 0.0);
+    const Inept::Core::Vector3D v6(1.0, 2.0, 3.0);
+    const Inept::Core::Vector3D expectedCrossProduct3(0.0, 0.0, 0.0);
+    QCOMPARE(v5.cross(v6), expectedCrossProduct3);
+    
+    const Inept::Core::Vector3D v7(-1.0, -2.0, -3.0);
+    const Inept::Core::Vector3D v8(1.0, 2.0, 3.0);
+    const Inept::Core::Vector3D expectedCrossProduct4(0.0, 0.0, 0.0);
+    QCOMPARE(v7.cross(v8), expectedCrossProduct4);
 }
 
 QTEST_MAIN(TestVector3D)

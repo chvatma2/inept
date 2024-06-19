@@ -1,4 +1,5 @@
-/* MIT License
+/*
+MIT License
 
 Copyright (c) 2024 Martin Chvatal
 
@@ -18,42 +19,30 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE. */
+SOFTWARE.
+*/
 
-#include "core/scene.h"
-#include "core/primitive.h"
-#include "core/ray.h"
-#include <limits>
+#include "core/integrator.h"
 
 namespace Inept::Core {
 
-Scene::Scene(std::vector<std::unique_ptr<Primitive>>&& primitives, const Camera& camera)
-    : m_primitives {std::move(primitives)}
-    , m_camera {camera}
+Integrator::Integrator(const IntegratorConfiguration& configuration)
+    : m_configuration {configuration}
 {
 }
 
-std::optional<SurfaceInteraction> Scene::intersect(const Ray& ray) const
+void Integrator::render(const Scene& scene) const
 {
-    std::optional<SurfaceInteraction> result;
-    double closestDistance {std::numeric_limits<double>::max()};
-    for (auto& primitive : m_primitives) {
-        auto interaction = primitive->intersect(ray);
-        if (!interaction.has_value()) {
-            continue;
-        }
-        const double distance = (ray.origin() - interaction->point()).length();
-        if (distance < closestDistance) {
-            closestDistance = distance;
-            result.emplace(interaction.value());
+    for (quint32 y = 0; y < m_configuration.height; ++y) {
+        for (quint32 x = 0; x < m_configuration.width; ++x) {
+            const double u = static_cast<double>(x) / m_configuration.width;
+            const double v = static_cast<double>(y) / m_configuration.height;
+            const Ray ray = scene.camera().getRay(u, v);
+            const auto interaction = scene.intersect(ray);
+            if (interaction.has_value()) {
+                //TODO (chvatalm): Implement rendering
+            }
         }
     }
-    return result;
 }
-
-auto Scene::camera() const -> const Camera&
-{
-    return m_camera;
-}
-
 } // namespace Inept::Core
