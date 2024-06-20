@@ -60,10 +60,10 @@ jobs:
 
     - name: Generate a code coverage report
       run: gcovr ../build-coverage
-    # - name: Static Analysis Configure
-    #   run: cmake --preset "clazy"
+    - name: Static Analysis Configure
+      run: cmake --preset "clazy"
 
-    # - name: Static Analysis Build
-    #   run: |
-    #     clazy --version
-    #     cmake --build --preset "clazy"
+    - name: Static Analysis Build
+      run: |
+        clazy --version
+        cmake --build --preset "clazy"

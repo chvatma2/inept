@@ -31,8 +31,17 @@ public:
     Ray(const Vector3D& origin, const Vector3D& direction)
         : m_origin(origin)
         , m_direction(direction) {};
+    /// @brief  Returns the origin of the ray.
+    /// @return The origin of the ray.
     [[nodiscard]] auto origin() const -> Vector3D;
+    /// @brief  Returns the direction of the ray.
+    /// @return The direction of the ray.
     [[nodiscard]] auto direction() const -> Vector3D;
+    /// @brief  Compares two rays for equality.
+    /// @param  other The ray to compare against.
+    /// @return True if the rays are equal, false otherwise.
+    [[nodiscard]] auto operator==(const Ray& other) const -> bool;
+    
 
 private:
     Vector3D m_origin;

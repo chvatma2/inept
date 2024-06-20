@@ -34,6 +34,23 @@ private slots:
         QCOMPARE(ray.origin(), origin);
         QCOMPARE(ray.direction(), direction);
     }
+    static void equalityOperatorTest()
+    {
+        const Inept::Core::Vector3D origin1 {0.0, 0.0, 0.0};
+        const Inept::Core::Vector3D direction1 {1.0, 0.0, 0.0};
+        const Inept::Core::Ray ray1 {origin1, direction1};
+
+        const Inept::Core::Vector3D origin2 {0.0, 0.0, 0.0};
+        const Inept::Core::Vector3D direction2 {1.0, 0.0, 0.0};
+        const Inept::Core::Ray ray2 {origin2, direction2};
+
+        const Inept::Core::Vector3D origin3 {1.0, 1.0, 1.0};
+        const Inept::Core::Vector3D direction3 {0.0, 1.0, 0.0};
+        const Inept::Core::Ray ray3 {origin3, direction3};
+
+        QVERIFY(ray1 == ray2);
+        QVERIFY(!(ray1 == ray3));
+    }
 };
 QTEST_MAIN(RayTest)
 #include "ray.test.moc"

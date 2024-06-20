@@ -31,4 +31,10 @@ auto Ray::direction() const -> Vector3D
 {
     return m_direction;
 }
+
+auto Ray::operator==(const Ray& other) const -> bool
+{
+    return m_origin == other.m_origin && m_direction == other.m_direction;
+}
+
 } // namespace Inept::Core
