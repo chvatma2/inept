@@ -57,5 +57,4 @@ auto Vector3D::cross(const Vector3D& other) const noexcept -> Vector3D
     return Vector3D{m_y * other.m_z - m_z * other.m_y, m_z * other.m_x - m_x * other.m_z, m_x * other.m_y - m_y * other.m_x};   
 }
 
-
 } // namespace Inept::Core

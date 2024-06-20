@@ -23,6 +23,11 @@ Copyright(c) 2024 Martin Chvatal
 
 namespace Inept::Core {
 
+auto Primitive::operator==(const Primitive& other) const noexcept -> bool
+{
+    return m_id == other.m_id;
+}
+
 auto Primitive::color() const noexcept -> Vector3D
 {
     return m_color;

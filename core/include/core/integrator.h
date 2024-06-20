@@ -45,7 +45,7 @@ public:
 
     private:
         IntegratorConfiguration m_configuration;
-
+};
 } // namespace Inept::Core
 
 #endif // INTEGRATOR_H

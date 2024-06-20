@@ -70,6 +70,5 @@ auto Sphere::intersect(const Ray& ray) const noexcept -> std::optional<SurfaceIn
 
     // No intersection with the sphere
     return std::nullopt;
-    return {};
 }
 } // namespace Inept::Core

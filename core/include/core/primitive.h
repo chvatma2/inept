@@ -26,6 +26,7 @@ Copyright(c) 2024 Martin Chvatal
 #include "core/surfaceinteraction.h"
 #include "core/vector3d.h"
 #include <optional>
+#include <QRandomGenerator64>
 
 namespace Inept::Core {
 
@@ -34,12 +35,14 @@ class Primitive
 public:
     Primitive(const Vector3D& color, const Vector3D& emission)
         : m_color {color}
-        , m_emission {emission} {};
+        , m_emission {emission}
+        , m_id {QRandomGenerator64::global()->generate64()} {};
     virtual ~Primitive() = default;
     Primitive(const Primitive&) = delete;
     Primitive& operator=(const Primitive&) = delete;
     Primitive(Primitive&&) = delete;
     Primitive& operator=(Primitive&&) = delete;
+    [[nodiscard]] auto operator==(const Primitive& other) const noexcept -> bool;
     [[nodiscard]] virtual auto intersect(const Ray& ray) const noexcept -> std::optional<SurfaceInteraction> = 0;
     [[nodiscard]] auto color() const noexcept -> Vector3D;
     [[nodiscard]] auto emission() const noexcept -> Vector3D;
@@ -47,6 +50,7 @@ public:
 private:
     Vector3D m_color;
     Vector3D m_emission;
+    quint64 m_id{0};
 };
 
 } // namespace Inept::Core

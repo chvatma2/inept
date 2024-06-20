@@ -26,18 +26,67 @@ class SphereTest : public QObject
 {
     Q_OBJECT
 private slots:
-    static void constructorTest()
+    static void intersectTest();
+    static void noIntersectTest();
+};
+
+// Test case for ray intersecting with the sphere
+void SphereTest::intersectTest()
+{
+    // Create a sphere
+    const Inept::Core::Vector3D position {0.0, 0.0, 0.0};
+    const double radius {1.0};
+    const Inept::Core::Vector3D color {1.0, 1.0, 1.0};
+    const Inept::Core::Vector3D emission {0.0, 0.0, 0.0};
+    const Inept::Core::Sphere sphere(position, radius, color, emission);
+
+    // Create a ray that intersects with the sphere
+    const Inept::Core::Vector3D rayOrigin {0.0, 0.0, -2.0};
+    const Inept::Core::Vector3D rayDirection {0.0, 0.0, 1.0};
+    const Inept::Core::Ray ray(rayOrigin, rayDirection);
+
+    // Perform the intersection test
+    const std::optional<Inept::Core::SurfaceInteraction> intersection = sphere.intersect(ray);
+
+    // Check if the intersection is valid
+    QVERIFY(intersection.has_value());
+
+    // Check the intersection point
+    const Inept::Core::Vector3D expectedIntersectionPoint {0.0, 0.0, -1.0};
+    if (intersection.has_value())
     {
-        const Inept::Core::Vector3D color {1.0, 0.0, 0.5};
-        const Inept::Core::Vector3D emission {0.0, 0.5, 1.0};
-        const Inept::Core::Vector3D position {0.5, 1.0, 0.0};
-        const double size {2.0};
-        const Inept::Core::Sphere sphere(position, size, color, emission);
-        QCOMPARE(sphere.color(), color);
-        QCOMPARE(sphere.emission(), emission);
+        QCOMPARE(intersection->point(), expectedIntersectionPoint);
     }
 
-private:
-};
+    // Check the surface normal
+    const Inept::Core::Vector3D expectedSurfaceNormal {0.0, 0.0, -1.0};
+    if (intersection.has_value())
+    {
+        QCOMPARE(intersection->normal(), expectedSurfaceNormal);
+    }
+}
+
+// Test case for ray not intersecting with the sphere
+void SphereTest::noIntersectTest()
+{
+    // Create a sphere
+    const Inept::Core::Vector3D position {0.0, 0.0, 0.0};
+    const double radius {1.0};
+    const Inept::Core::Vector3D color {1.0, 1.0, 1.0};
+    const Inept::Core::Vector3D emission {0.0, 0.0, 0.0};
+    const Inept::Core::Sphere sphere(position, radius, color, emission);
+
+    // Create a ray that does not intersect with the sphere
+    const Inept::Core::Vector3D rayOrigin {0.0, 0.0, -2.0};
+    const Inept::Core::Vector3D rayDirection {0.0, 1.0, 0.0};
+    const Inept::Core::Ray ray(rayOrigin, rayDirection);
+
+    // Perform the intersection test
+    const std::optional<Inept::Core::SurfaceInteraction> intersection = sphere.intersect(ray);
+
+    // Check if there is no intersection
+    QVERIFY(!intersection.has_value());
+}
+
 QTEST_MAIN(SphereTest)
 #include "sphere.test.moc"
