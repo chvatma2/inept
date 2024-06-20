@@ -49,13 +49,12 @@ void SceneTest::intersectTest()
     const Inept::Core::Scene scene { std::move(primitives), camera};
     const auto interaction = scene.intersect(ray);
     QVERIFY(interaction.has_value());
-    if(!interaction.has_value())
+    if(interaction.has_value())
     {
-        return;
+        QCOMPARE(interaction.value().point(), (Inept::Core::Vector3D {0.0, 0.0, 4.0}));
+        QCOMPARE(interaction.value().normal(), (Inept::Core::Vector3D {0.0, 0.0, -1.0}));
+        QCOMPARE(interaction.value().primitive(), *sphere);
     }
-    QCOMPARE(interaction.value().point(), (Inept::Core::Vector3D {0.0, 0.0, 4.0}));
-    QCOMPARE(interaction.value().normal(), (Inept::Core::Vector3D {0.0, 0.0, -1.0}));
-    QCOMPARE(interaction.value().primitive(), *sphere);
 
     //TODO (chvatalm) analyze the following edge cases
     // Edge case: Ray origin inside the sphere

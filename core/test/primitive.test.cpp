@@ -49,6 +49,28 @@ private slots:
         QCOMPARE(primitive.color(), color);
         QCOMPARE(primitive.emission(), emission);
     }
+    static void operatorEqualsTest()
+    {
+        const Inept::Core::Vector3D color1 {0.7, 0.7, 0.6};
+        const Inept::Core::Vector3D emission1 {0.1, 0.0, 0.0};
+        const PrimitiveImpl primitive1 {color1, emission1};
+
+        const Inept::Core::Vector3D color2 {0.5, 0.5, 0.5};
+        const Inept::Core::Vector3D emission2 {0.0, 0.0, 0.0};
+        const PrimitiveImpl primitive2 {color2, emission2};
+
+        QVERIFY(primitive1 == primitive1); // Same object
+        QVERIFY(!(primitive1 == primitive2)); // Different color and emission
+    }
+    static void intersectTest()
+    {
+        const Inept::Core::Vector3D origin {0.0, 0.0, 0.0};
+        const Inept::Core::Vector3D direction {0.0, 0.0, 1.0};
+        const Inept::Core::Ray ray {origin, direction};
+        const PrimitiveImpl primitive {Inept::Core::Vector3D {0.7, 0.7, 0.6}, Inept::Core::Vector3D {0.1, 0.0, 0.0}};
+        const auto interaction = primitive.intersect(ray);
+        QVERIFY(!interaction.has_value());
+    }
 };
 QTEST_MAIN(PrimitiveTest)
 #include "primitive.test.moc"
