@@ -3,7 +3,7 @@ find_package(
   COMPONENTS Test Core Gui
   REQUIRED)
 
-set(classes primitive ray sampler scene sphere surfaceinteraction vector3d camera)
+set(classes primitive ray sampler scene sphere surfaceinteraction vector3d camera triangle material)
 
 add_library(core STATIC)
 target_include_directories(core PUBLIC include)

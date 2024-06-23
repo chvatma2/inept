@@ -46,6 +46,7 @@ private slots:
     static void testDotProduct();
     static void testNormalized();
     static void testCrossProduct();
+    static void testDistanceTo();
 };
 
 /// @brief Test the addition operator of the Vector3D class.
@@ -308,6 +309,25 @@ void TestVector3D::testCrossProduct() {
     const Inept::Core::Vector3D v8(1.0, 2.0, 3.0);
     const Inept::Core::Vector3D expectedCrossProduct4(0.0, 0.0, 0.0);
     QCOMPARE(v7.cross(v8), expectedCrossProduct4);
+}
+
+/// @brief Test the distanceTo() function of the Vector3D class.
+/// @details The test checks if the distanceTo() function of the Vector3D class returns the correct result.
+void TestVector3D::testDistanceTo() {
+    const Inept::Core::Vector3D v1(1.0, 2.0, 3.0);
+    const Inept::Core::Vector3D v2(4.0, 5.0, 6.0);
+    const double expectedDistance = 5.19615242271;
+    QVERIFY(std::abs(v1.distanceTo(v2) - expectedDistance) < 1e-6);
+    
+    const Inept::Core::Vector3D v3(0.0, 0.0, 0.0);
+    const Inept::Core::Vector3D v4(1.0, 2.0, 3.0);
+    const double expectedDistance2 = 3.74165738677;
+    QVERIFY(std::abs(v3.distanceTo(v4) - expectedDistance2) < 1e-6);
+    
+    const Inept::Core::Vector3D v5(1e9, 1e9, 1e9);
+    const Inept::Core::Vector3D v6(1e9, 1e9, 1e9);
+    const double expectedDistance3 = 0.0;
+    QVERIFY(std::abs(v5.distanceTo(v6) - expectedDistance3) < 1e-6);
 }
 
 QTEST_MAIN(TestVector3D)

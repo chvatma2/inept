@@ -24,12 +24,13 @@ public:
     [[nodiscard]] auto dot(const Vector3D& other) const noexcept -> double;
     [[nodiscard]] auto normalize() const noexcept -> Vector3D;
     [[nodiscard]] auto cross(const Vector3D& other) const noexcept -> Vector3D;
+    [[nodiscard]] auto distanceTo(const Vector3D& other) const noexcept -> double;
 
 private:
     double m_x{0.0};
     double m_y{0.0};
     double m_z{0.0};
-};;
+};;;
 
 } // namespace Inept::Core
 
