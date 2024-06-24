@@ -1,4 +1,5 @@
-/* MIT License
+/*
+MIT License
 
 Copyright (c) 2024 Martin Chvatal
 
@@ -18,5 +19,15 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE. */
+SOFTWARE.
+*/
 
+#include "core/material.h"
+
+namespace Inept::Core {
+
+auto Material::operator==(const Material& other) const noexcept -> bool {
+    return m_color == other.m_color && m_emission == other.m_emission && m_type == other.m_type;
+}
+
+} // namespace Inept::Core

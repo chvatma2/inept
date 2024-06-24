@@ -1,4 +1,5 @@
-/* MIT License
+/*
+MIT License
 
 Copyright (c) 2024 Martin Chvatal
 
@@ -18,5 +19,40 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE. */
+SOFTWARE.
+*/
+#ifndef CORE_MATERIAL_H
+#define CORE_MATERIAL_H
 
+#include "core/vector3d.h"
+
+namespace Inept::Core {
+
+enum class MaterialType {
+    Diffuse,
+    Speculative,
+    Refractive
+};
+
+/// @brief Material class represents a material with color, emission and type.
+/// @details The material can be of type Diffuse, Speculative or Refractive.
+class Material {
+private:
+    Vector3D m_color;
+    Vector3D m_emission;
+    MaterialType m_type{MaterialType::Diffuse};
+
+public:
+    Material(const Vector3D& color, const Vector3D& emission, MaterialType type = MaterialType::Diffuse)
+        : m_color(color), m_emission(emission), m_type(type) {}
+
+    [[nodiscard]] auto operator==(const Material& other) const noexcept -> bool;
+
+    [[nodiscard]] auto color() const noexcept -> Vector3D { return m_color; }
+    [[nodiscard]] auto emission() const noexcept -> Vector3D { return m_emission; }
+    [[nodiscard]] auto type() const noexcept -> MaterialType { return m_type; }
+};
+
+} // namespace Inept::Core
+
+#endif // CORE_MATERIAL_H

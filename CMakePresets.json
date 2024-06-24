@@ -31,7 +31,7 @@
             "name": "gcov",
             "hidden": true,
             "cacheVariables": {
-                "CMAKE_CXX_FLAGS_DEBUG": "--coverage"
+                "CMAKE_CXX_FLAGS_DEBUG": "-ftest-coverage -fprofile-arcs"
             }
 
         },
@@ -145,7 +145,7 @@
         {
             "name": "coverage",
             "configurePreset": "coverage",
-            "output": {"outputOnFailure": true},
+            "output": {"outputOnFailure": true, "verbosity": "extra"},
             "execution": {"noTestsAction": "error"}
         }
     ]

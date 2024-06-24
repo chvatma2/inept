@@ -20,3 +20,24 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. */
 
+#include "core/surfaceinteraction.h"
+#include "core/primitive.h"
+
+namespace Inept::Core {
+
+auto SurfaceInteraction::primitive() const noexcept -> const Primitive&
+{
+    return m_primitive;
+}
+
+auto SurfaceInteraction::point() const noexcept -> Vector3D
+{
+    return m_point;
+}
+
+auto SurfaceInteraction::normal() const noexcept -> Vector3D
+{
+    return m_normal;
+}
+
+} // namespace Inept::Core

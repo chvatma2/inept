@@ -20,3 +20,23 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. */
 
+#include "core/sampler.h"
+
+namespace Inept::Core {
+
+Sampler::Sampler()
+    : m_generator {m_seed}
+{
+}
+
+QPoint Sampler::random()
+{
+    return QPoint {m_generator.bounded(0, 1000), m_generator.bounded(0, 1000)};
+}
+
+QPointF Sampler::randomf()
+{
+    return QPointF {m_generator.generateDouble(), m_generator.generateDouble()};
+}
+
+} // namespace Inept::Core

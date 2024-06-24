@@ -19,21 +19,33 @@ Copyright(c) 2024 Martin Chvatal
  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#ifndef SPHERE_H
-#define SPHERE_H
-#include "core/primitive.h"
+#ifndef RAY_H
+#define RAY_H
+
 #include "core/vector3d.h"
 
 namespace Inept::Core {
-class Sphere : public Primitive
+class Ray
 {
 public:
-    Sphere(const Vector3D& position, double radius, const Material& material);
-    auto intersect(const Ray& ray) const noexcept -> std::optional<SurfaceInteraction> override;
+    Ray(const Vector3D& origin, const Vector3D& direction)
+        : m_origin(origin)
+        , m_direction(direction) {};
+    /// @brief  Returns the origin of the ray.
+    /// @return The origin of the ray.
+    [[nodiscard]] auto origin() const -> Vector3D;
+    /// @brief  Returns the direction of the ray.
+    /// @return The direction of the ray.
+    [[nodiscard]] auto direction() const -> Vector3D;
+    /// @brief  Compares two rays for equality.
+    /// @param  other The ray to compare against.
+    /// @return True if the rays are equal, false otherwise.
+    [[nodiscard]] auto operator==(const Ray& other) const -> bool;
+    
 
 private:
-    Vector3D m_position;
-    double m_radius {0.0};
-};;
+    Vector3D m_origin;
+    Vector3D m_direction;
+};
 } // namespace Inept::Core
-#endif // SPHERE_H
+#endif // RAY_H
