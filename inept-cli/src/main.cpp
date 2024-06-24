@@ -41,19 +41,23 @@ auto setupCornellBox() -> Inept::Core::Scene
     const Inept::Core::Vector3D white{1.0, 1.0, 1.0};
     const Inept::Core::Vector3D red{1.0, 0, 0};
     const Inept::Core::Vector3D green{0, 1.0, 0};
-    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{0, -10004, -20}, 10000.0, white, noEmissions)); // Floor
-    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{0, 10004, -20}, 10000, white, noEmissions)); // Ceiling
-    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{10004, 0, -20}, 10000, white, noEmissions)); // Right Wall
-    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{-10004, 0, -20}, 10000, white, noEmissions)); // Left Wall
-    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{0, 0, -10004}, 10000, white, noEmissions)); // Back Wall
-    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{0, 0, 10004}, 10000, white, noEmissions)); // Front Wall (Assuming the camera is inside the box)
+    const Inept::Core::Material plainWhite(white, noEmissions);
+    const Inept::Core::Material plainRed(white, noEmissions);
+    const Inept::Core::Material plainGreen(white, noEmissions);
+    const Inept::Core::Material whiteLight(white, whiteEmissions);
+    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{0, -10004, -20}, 10000.0, plainWhite)); // Floor
+    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{0, 10004, -20}, 10000, plainWhite)); // Ceiling
+    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{10004, 0, -20}, 10000, plainWhite)); // Right Wall
+    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{-10004, 0, -20}, 10000, plainWhite)); // Left Wall
+    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{0, 0, -10004}, 10000, plainWhite)); // Back Wall
+    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{0, 0, 10004}, 10000, plainWhite)); // Front Wall (Assuming the camera is inside the box)
 
     // Smaller spheres inside the Cornell Box
-    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{-0.5, -0.5, -1}, 0.5, red, noEmissions));
-    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{0.5, -0.5, -1}, 0.5, green, noEmissions));
+    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{-0.5, -0.5, -1}, 0.5, plainRed));
+    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{0.5, -0.5, -1}, 0.5, plainGreen));
 
     // Light source (represented as a small, bright sphere for simplicity)
-    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{0.0, 0.99, -2}, 0.2, white, whiteEmissions));
+    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D{0.0, 0.99, -2}, 0.2, whiteLight));
     const Inept::Core::Camera camera{Inept::Core::Vector3D{0.0, 0.0, 0.0}, Inept::Core::Vector3D{0.0, 0.0, -1.0}, Inept::Core::Vector3D{0.0, 1.0, 0.0}, 90.0, 16.0 / 9.0, 0.1};
     return {std::move(primitives), camera};
 }

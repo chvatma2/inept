@@ -28,14 +28,14 @@ auto Primitive::operator==(const Primitive& other) const noexcept -> bool
     return m_id == other.m_id;
 }
 
-auto Primitive::color() const noexcept -> Vector3D
+auto Primitive::material() const noexcept -> const Material&
 {
-    return m_color;
+    return m_material;
 }
 
-auto Primitive::emission() const noexcept -> Vector3D
+auto Primitive::id() const noexcept -> quint64
 {
-    return m_emission;
+    return m_id;
 }
 
 } // namespace Inept::Core

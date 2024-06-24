@@ -28,8 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 class PrimitiveImpl : public Inept::Core::Primitive
 {
 public:
-    PrimitiveImpl(const Inept::Core::Vector3D& color, const Inept::Core::Vector3D& emission)
-        : Primitive(color, emission) {};
+    explicit PrimitiveImpl(const Inept::Core::Material& material)
+        : Primitive(material) {};
     [[nodiscard]] std::optional<Inept::Core::SurfaceInteraction> intersect(const Inept::Core::Ray& ray) const noexcept override
     {
         Q_UNUSED(ray)
@@ -45,19 +45,21 @@ private slots:
     {
         const Inept::Core::Vector3D color {0.7, 0.7, 0.6};
         const Inept::Core::Vector3D emission {0.1, 0.0, 0.0};
-        const PrimitiveImpl primitive {color, emission};
-        QCOMPARE(primitive.color(), color);
-        QCOMPARE(primitive.emission(), emission);
+        const Inept::Core::Material material {color, emission, Inept::Core::MaterialType::Diffuse};
+        const PrimitiveImpl primitive {material};
+        QCOMPARE(material, primitive.material());
     }
     static void operatorEqualsTest()
     {
         const Inept::Core::Vector3D color1 {0.7, 0.7, 0.6};
         const Inept::Core::Vector3D emission1 {0.1, 0.0, 0.0};
-        const PrimitiveImpl primitive1 {color1, emission1};
+        const Inept::Core::Material material1 {color1, emission1, Inept::Core::MaterialType::Diffuse};
+        const PrimitiveImpl primitive1 {material1};
 
         const Inept::Core::Vector3D color2 {0.5, 0.5, 0.5};
         const Inept::Core::Vector3D emission2 {0.0, 0.0, 0.0};
-        const PrimitiveImpl primitive2 {color2, emission2};
+        const Inept::Core::Material material2 {color2, emission2, Inept::Core::MaterialType::Diffuse};
+        const PrimitiveImpl primitive2 {material2};
 
         QVERIFY(primitive1 == primitive1); // Same object
         QVERIFY(!(primitive1 == primitive2)); // Different color and emission
@@ -66,8 +68,11 @@ private slots:
     {
         const Inept::Core::Vector3D origin {0.0, 0.0, 0.0};
         const Inept::Core::Vector3D direction {0.0, 0.0, 1.0};
+        const Inept::Core::Vector3D color {0.7, 0.7, 0.6};
+        const Inept::Core::Vector3D emission {0.1, 0.0, 0.0};
+        const Inept::Core::Material material {color, emission, Inept::Core::MaterialType::Diffuse};
         const Inept::Core::Ray ray {origin, direction};
-        const PrimitiveImpl primitive {Inept::Core::Vector3D {0.7, 0.7, 0.6}, Inept::Core::Vector3D {0.1, 0.0, 0.0}};
+        const PrimitiveImpl primitive {material};
         const auto interaction = primitive.intersect(ray);
         QVERIFY(!interaction.has_value());
     }

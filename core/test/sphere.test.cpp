@@ -38,7 +38,8 @@ void SphereTest::intersectTest()
     const double radius {1.0};
     const Inept::Core::Vector3D color {1.0, 1.0, 1.0};
     const Inept::Core::Vector3D emission {0.0, 0.0, 0.0};
-    const Inept::Core::Sphere sphere(position, radius, color, emission);
+    const Inept::Core::Material material {color, emission};
+    const Inept::Core::Sphere sphere(position, radius, material);
 
     // Create a ray that intersects with the sphere
     const Inept::Core::Vector3D rayOrigin {0.0, 0.0, -2.0};
@@ -74,7 +75,8 @@ void SphereTest::noIntersectTest()
     const double radius {1.0};
     const Inept::Core::Vector3D color {1.0, 1.0, 1.0};
     const Inept::Core::Vector3D emission {0.0, 0.0, 0.0};
-    const Inept::Core::Sphere sphere(position, radius, color, emission);
+    const Inept::Core::Material material {color, emission};
+    const Inept::Core::Sphere sphere(position, radius, material);
 
     // Create a ray that does not intersect with the sphere
     const Inept::Core::Vector3D rayOrigin {0.0, 0.0, -2.0};

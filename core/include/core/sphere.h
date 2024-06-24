@@ -28,7 +28,7 @@ namespace Inept::Core {
 class Sphere : public Primitive
 {
 public:
-    Sphere(const Vector3D& position, double radius, const Vector3D& color, const Vector3D& emission);
+    Sphere(const Vector3D& position, double radius, const Material& material);
     auto intersect(const Ray& ray) const noexcept -> std::optional<SurfaceInteraction> override;
 
 private:

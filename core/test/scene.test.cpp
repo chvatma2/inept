@@ -44,7 +44,8 @@ void SceneTest::intersectTest()
     const Inept::Core::Ray ray {origin, direction};
     const Inept::Core::Camera camera{ Inept::Core::Vector3D {0.0, 0.0, 0.0}, Inept::Core::Vector3D {0.0, 0.0, 1.0}, Inept::Core::Vector3D {0.0, 1.0, 0.0}, 90.0, 1.0, 1.0};
     std::vector<std::unique_ptr<Inept::Core::Primitive>> primitives;
-    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D {0.0, 0.0, 5.0}, 1.0, Inept::Core::Vector3D {1.0, 1.0, 1.0}, Inept::Core::Vector3D {0.0, 0.0, 0.0}));
+    const Inept::Core::Material material {Inept::Core::Vector3D {1.0, 1.0, 1.0}, Inept::Core::Vector3D {0.0, 0.0, 0.0}, Inept::Core::MaterialType::Diffuse};
+    primitives.push_back(std::make_unique<Inept::Core::Sphere>(Inept::Core::Vector3D {0.0, 0.0, 5.0}, 1.0, material));
     auto sphere = primitives[0].get();
     const Inept::Core::Scene scene { std::move(primitives), camera};
     const auto interaction = scene.intersect(ray);
